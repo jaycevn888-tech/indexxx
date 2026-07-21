@@ -1064,7 +1064,8 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInWithPopup, 
+            signInWithRedirect, 
+            getRedirectResult,
             GoogleAuthProvider, 
             signOut, 
             onAuthStateChanged,
@@ -1089,10 +1090,18 @@
             googleProvider = new GoogleAuthProvider();
             window.firebaseAuth = auth;
             window.googleProvider = googleProvider;
-            window.signInWithPopup = signInWithPopup;
+            window.signOut = signOut;
             window.signInWithEmailAndPassword = signInWithEmailAndPassword;
             window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-            window.signOut = signOut;
+
+            // Xử lý kết quả trả về khi Google chuyển hướng trang quay lại
+            getRedirectResult(auth).then((result) => {
+                if (result && result.user) {
+                    updateLoginUI(result.user);
+                }
+            }).catch((error) => {
+                console.error("Redirect auth error:", error);
+            });
 
             onAuthStateChanged(auth, (user) => {
                 if (user) {
@@ -1107,12 +1116,11 @@
 
         window.handleGoogleLogin = async function() {
             try {
-                if (window.firebaseAuth && window.googleProvider && window.signInWithPopup) {
-                    const result = await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
-                    updateLoginUI(result.user);
+                if (window.firebaseAuth && window.googleProvider) {
+                    await signInWithRedirect(window.firebaseAuth, window.googleProvider);
                 }
             } catch (e) {
-                console.error("Google Auth Error:", e);
+                console.error("Google Redirect Error:", e);
                 alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}`);
             }
         };
