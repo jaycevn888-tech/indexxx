@@ -1034,7 +1034,7 @@
     <!-- FIREBASE & CORE SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAwnd3wLLJryYJLRIQVKf2csx94oYzn8",
@@ -1049,7 +1049,7 @@
         const auth = getAuth(app);
         window.firebaseAuth = auth;
         window.googleProvider = new GoogleAuthProvider();
-        window.signInWithRedirect = signInWithRedirect;
+        window.signInWithPopup = signInWithPopup;
         window.signOut = signOut;
 
         onAuthStateChanged(auth, (user) => {
@@ -1071,16 +1071,6 @@
                 loggedOutView.classList.remove('hidden');
             }
         });
-
-        getRedirectResult(auth)
-            .then((result) => {
-                if (result?.user) {
-                    console.log("Signed in via redirect:", result.user.email);
-                }
-            })
-            .catch((error) => {
-                console.error("Auth redirect error:", error);
-            });
     </script>
 
     <script>
@@ -1150,7 +1140,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v7');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v8');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1165,17 +1155,17 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v7', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v8', JSON.stringify(appState));
         }
 
         async function handleGoogleLogin() {
             try {
-                if (window.firebaseAuth && window.googleProvider && window.signInWithRedirect) {
-                    await window.signInWithRedirect(window.firebaseAuth, window.googleProvider);
+                if (window.firebaseAuth && window.googleProvider && window.signInWithPopup) {
+                    await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
                 }
             } catch (e) {
                 console.error(e);
-                alert('Không thể chuyển hướng đăng nhập Google.');
+                alert('Không thể đăng nhập Google qua popup. Hãy đảm bảo bạn cho phép popup trình duyệt.');
             }
         }
 
@@ -1213,7 +1203,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v7');
+                localStorage.removeItem('jacooodevn_persistent_state_v8');
                 location.reload();
             }
         }
