@@ -91,11 +91,11 @@
                 </div>
                 <div id="loggedInView" class="hidden flex items-center space-x-3">
                     <div class="text-right hidden sm:block">
-                        <div class="text-xs font-bold text-slate-900" id="userName">Linh Tran</div>
-                        <div class="text-[10px] text-slate-500" id="userEmail">linhtran2026@gmail.com</div>
+                        <div class="text-xs font-bold text-slate-900" id="userName">User</div>
+                        <div class="text-[10px] text-slate-500" id="userEmail">user@gmail.com</div>
                     </div>
                     <div id="userAvatarContainer" class="w-9 h-9 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center text-sm shadow">
-                        LT
+                        U
                     </div>
                     <button onclick="handleLogout()" title="Đăng xuất" class="text-slate-400 hover:text-rose-600 p-1.5 transition">
                         <i class="fa-solid fa-right-from-bracket text-sm"></i>
@@ -1181,7 +1181,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v10');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v11');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1196,7 +1196,7 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v10', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v11', JSON.stringify(appState));
         }
 
         async function handleGoogleLogin() {
@@ -1208,7 +1208,7 @@
             } catch (e) {
                 console.error("Google Auth Error Code:", e.code);
                 console.error("Google Auth Error Message:", e.message);
-                alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}\n(Hãy kiểm tra Firebase Console -> Authentication -> Sign-in method -> Google đã được Enable và Authorized domains chưa)`);
+                alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}\n(Hãy kiểm tra Firebase Console -> Authentication -> Sign-in method -> Google đã được Enable và Authorized domains chứa: jaycevn888-tech.github.io)`);
             }
         }
 
@@ -1276,7 +1276,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v10');
+                localStorage.removeItem('jacooodevn_persistent_state_v11');
                 location.reload();
             }
         }
