@@ -79,10 +79,14 @@
             
             <!-- Auth Section -->
             <div id="authContainer" class="flex items-center space-x-3 pl-4 border-l border-slate-200">
-                <div id="loggedOutView">
+                <div id="loggedOutView" class="flex items-center space-x-2">
                     <button onclick="handleGoogleLogin()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
                         <i class="fa-brands fa-google text-red-500"></i>
                         <span>Đăng nhập Google</span>
+                    </button>
+                    <button onclick="openEmailAuthModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
+                        <i class="fa-solid fa-envelope text-blue-500"></i>
+                        <span>Email</span>
                     </button>
                 </div>
                 <div id="loggedInView" class="hidden flex items-center space-x-3">
@@ -1014,9 +1018,33 @@
                 </div>
                 <div>
                     <label class="font-bold text-slate-700 block mb-1">Số Vốn Khởi Tạo (Initial Balance $)</label>
-                    <input type="number" id="newAccountBalance" value="100000" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
+                    <input type="number" id="newAccountBalance" value="50000" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
                 </div>
                 <button onclick="addNewAccount()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow transition">Thêm Tài Khoản Tùy Chỉnh</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMAIL AUTH MODAL -->
+    <div id="emailAuthModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <h3 class="font-bold text-sm tracking-wide">ĐĂNG NHẬP / ĐĂNG KÝ EMAIL</h3>
+                <button onclick="closeEmailAuthModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 space-y-4 text-xs">
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Email</label>
+                    <input type="email" id="authEmailInput" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700" placeholder="name@example.com">
+                </div>
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Mật khẩu (Password)</label>
+                    <input type="password" id="authPasswordInput" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700" placeholder="••••••••">
+                </div>
+                <div class="flex space-x-3 pt-2">
+                    <button onclick="handleEmailLogin()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow transition">Đăng Nhập</button>
+                    <button onclick="handleEmailRegister()" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-lg shadow transition">Đăng Ký</button>
+                </div>
             </div>
         </div>
     </div>
@@ -1034,7 +1062,16 @@
     <!-- FIREBASE & CORE SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getAuth, 
+            signInWithRedirect, 
+            getRedirectResult, 
+            GoogleAuthProvider, 
+            signOut, 
+            onAuthStateChanged,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyAAwnd3wLLJryYJLRIQVKf2csx94oYzn8",
@@ -1047,10 +1084,25 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
+
         window.firebaseAuth = auth;
-        window.googleProvider = new GoogleAuthProvider();
-        window.signInWithPopup = signInWithPopup;
+        window.googleProvider = googleProvider;
+        window.signInWithRedirect = signInWithRedirect;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
         window.signOut = signOut;
+
+        // Handle redirect result upon return
+        getRedirectResult(auth)
+            .then((result) => {
+                if (result?.user) {
+                    console.log("Google redirect sign-in success:", result.user);
+                }
+            })
+            .catch((error) => {
+                console.error("Redirect auth error:", error);
+            });
 
         onAuthStateChanged(auth, (user) => {
             const loggedOutView = document.getElementById('loggedOutView');
@@ -1058,13 +1110,13 @@
             if (user) {
                 loggedOutView.classList.add('hidden');
                 loggedInView.classList.remove('hidden');
-                document.getElementById('userName').innerText = user.displayName || 'Linh Tran';
-                document.getElementById('userEmail').innerText = user.email || 'linhtran2026@gmail.com';
+                document.getElementById('userName').innerText = user.displayName || user.email.split('@')[0];
+                document.getElementById('userEmail').innerText = user.email || 'user@gmail.com';
                 const avatar = document.getElementById('userAvatarContainer');
                 if (user.photoURL) {
                     avatar.innerHTML = `<img src="${user.photoURL}" class="w-full h-full rounded-full object-cover">`;
                 } else {
-                    avatar.innerText = (user.displayName || 'L').charAt(0).toUpperCase();
+                    avatar.innerText = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
                 }
             } else {
                 loggedInView.classList.add('hidden');
@@ -1140,7 +1192,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v8');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v9');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1155,17 +1207,47 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v8', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v9', JSON.stringify(appState));
         }
 
-        async function handleGoogleLogin() {
+        function handleGoogleLogin() {
             try {
-                if (window.firebaseAuth && window.googleProvider && window.signInWithPopup) {
-                    await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
+                if (window.firebaseAuth && window.googleProvider && window.signInWithRedirect) {
+                    window.signInWithRedirect(window.firebaseAuth, window.googleProvider);
                 }
             } catch (e) {
                 console.error(e);
-                alert('Không thể đăng nhập Google qua popup. Hãy đảm bảo bạn cho phép popup trình duyệt.');
+                alert('Không thể chuyển hướng đăng nhập Google.');
+            }
+        }
+
+        function openEmailAuthModal() {
+            document.getElementById('emailAuthModal').classList.remove('hidden');
+        }
+        function closeEmailAuthModal() {
+            document.getElementById('emailAuthModal').classList.add('hidden');
+        }
+
+        async function handleEmailLogin() {
+            const email = document.getElementById('authEmailInput').value;
+            const pass = document.getElementById('authPasswordInput').value;
+            try {
+                await window.signInWithEmailAndPassword(window.firebaseAuth, email, pass);
+                closeEmailAuthModal();
+            } catch (e) {
+                alert('Đăng nhập thất bại: ' + e.message);
+            }
+        }
+
+        async function handleEmailRegister() {
+            const email = document.getElementById('authEmailInput').value;
+            const pass = document.getElementById('authPasswordInput').value;
+            try {
+                await window.createUserWithEmailAndPassword(window.firebaseAuth, email, pass);
+                alert('Đăng ký tài khoản thành công!');
+                closeEmailAuthModal();
+            } catch (e) {
+                alert('Đăng ký thất bại: ' + e.message);
             }
         }
 
@@ -1203,7 +1285,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v8');
+                localStorage.removeItem('jacooodevn_persistent_state_v9');
                 location.reload();
             }
         }
@@ -1221,6 +1303,14 @@
 
         // Pristine formatting without double signs or spacing bugs
         function formatMoney(amount) {
+            const num = Number(amount) || 0;
+            const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            if (num > 0) return `+$${absVal}`;
+            if (num < 0) return `-$${absVal}`;
+            return `+$0`;
+        }
+
+        function formatMoneyPlain(amount) {
             const num = Number(amount) || 0;
             const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
             if (num > 0) return `+$${absVal}`;
@@ -1454,7 +1544,6 @@
             });
         }
 
-        // Win Rate Doughnut Gauge with emerald green for wins, rose red for losses, and dynamic green text if >= 50%
         function renderWinRateGauge(winRateVal, wins, losses) {
             const ctx = document.getElementById('winRateGaugeCanvas').getContext('2d');
             if (chartInstances['gauge']) chartInstances['gauge'].destroy();
@@ -1528,7 +1617,6 @@
             document.getElementById('cardSortino').innerText = 'N/A';
         }
 
-        // Daily Planner synchronized 100% with Overview calendar and Monday-to-Sunday international strip
         function renderPlanner() {
             const selectedDate = appState.plannerDate;
             const filteredTrades = getFilteredTrades();
@@ -1712,7 +1800,6 @@
             document.getElementById('modalReturnPctLabel').innerText = `Lợi nhuận (%) (Theo vốn ${accBalance.toLocaleString()}$)`;
         }
 
-        // Trade Log
         function renderTradeLog() {
             const tbody = document.getElementById('tradeLogTableBody');
             tbody.innerHTML = '';
@@ -1942,7 +2029,7 @@
             });
         }
 
-        // Time Analysis: By Day Of Week synchronized 100% with filtered trades and correct Win Rate formula
+        // Time Analysis: By Day Of Week synchronized 100% with filtered trades
         function renderByDayOfWeek() {
             const days = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
             let counts = new Array(7).fill(0);
