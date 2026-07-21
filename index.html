@@ -1082,6 +1082,8 @@
             measurementId: "G-S7KFDB3WTK"
         };
 
+        console.log("Firebase initializing with API Key:", firebaseConfig.apiKey ? "LOADED (Valid)" : "UNDEFINED");
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const googleProvider = new GoogleAuthProvider();
@@ -1181,7 +1183,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v11');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v12');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1196,7 +1198,7 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v11', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v12', JSON.stringify(appState));
         }
 
         async function handleGoogleLogin() {
@@ -1276,7 +1278,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v11');
+                localStorage.removeItem('jacooodevn_persistent_state_v12');
                 location.reload();
             }
         }
@@ -1314,7 +1316,7 @@
             });
         }
 
-        // Fixed 8-Column Calendar Matrix with Monday-start & trailing days
+        // Fixed 8-Column Calendar Matrix with Monday-start & trailing/leading days
         function renderOverview() {
             const year = appState.currentYear;
             const month = appState.currentMonth;
