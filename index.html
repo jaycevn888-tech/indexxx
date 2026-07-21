@@ -1064,8 +1064,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInWithRedirect, 
-            getRedirectResult, 
+            signInWithPopup, 
             GoogleAuthProvider, 
             signOut, 
             onAuthStateChanged,
@@ -1088,21 +1087,10 @@
 
         window.firebaseAuth = auth;
         window.googleProvider = googleProvider;
-        window.signInWithRedirect = signInWithRedirect;
+        window.signInWithPopup = signInWithPopup;
         window.signInWithEmailAndPassword = signInWithEmailAndPassword;
         window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
         window.signOut = signOut;
-
-        // Handle redirect result upon return
-        getRedirectResult(auth)
-            .then((result) => {
-                if (result?.user) {
-                    console.log("Google redirect sign-in success:", result.user);
-                }
-            })
-            .catch((error) => {
-                console.error("Redirect auth error:", error);
-            });
 
         onAuthStateChanged(auth, (user) => {
             const loggedOutView = document.getElementById('loggedOutView');
@@ -1192,7 +1180,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v9');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v10');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1207,17 +1195,19 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v9', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v10', JSON.stringify(appState));
         }
 
-        function handleGoogleLogin() {
+        async function handleGoogleLogin() {
             try {
-                if (window.firebaseAuth && window.googleProvider && window.signInWithRedirect) {
-                    window.signInWithRedirect(window.firebaseAuth, window.googleProvider);
+                if (window.firebaseAuth && window.googleProvider && window.signInWithPopup) {
+                    const result = await window.signInWithPopup(window.firebaseAuth, window.googleProvider);
+                    console.log("Google popup sign-in success:", result.user);
                 }
             } catch (e) {
-                console.error(e);
-                alert('Không thể chuyển hướng đăng nhập Google.');
+                console.error("Google Auth Error Code:", e.code);
+                console.error("Google Auth Error Message:", e.message);
+                alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}\n(Hãy kiểm tra Firebase Console -> Authentication -> Sign-in method -> Google đã được Enable và Authorized domains chưa)`);
             }
         }
 
@@ -1285,7 +1275,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v9');
+                localStorage.removeItem('jacooodevn_persistent_state_v10');
                 location.reload();
             }
         }
@@ -1301,16 +1291,8 @@
 
         let chartInstances = {};
 
-        // Pristine formatting without double signs or spacing bugs
+        // Pristine Money Formatting without double signs (e.g. -$2,300)
         function formatMoney(amount) {
-            const num = Number(amount) || 0;
-            const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-            if (num > 0) return `+$${absVal}`;
-            if (num < 0) return `-$${absVal}`;
-            return `+$0`;
-        }
-
-        function formatMoneyPlain(amount) {
             const num = Number(amount) || 0;
             const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
             if (num > 0) return `+$${absVal}`;
@@ -1331,7 +1313,7 @@
             });
         }
 
-        // Fixed 8-Column Calendar Matrix with Monday-start & padded days
+        // Fixed 8-Column Calendar Matrix with Monday-start & trailing days
         function renderOverview() {
             const year = appState.currentYear;
             const month = appState.currentMonth;
@@ -1439,7 +1421,7 @@
             // Dynamic Monthly Profit Badge next to month selector
             const badgeEl = document.getElementById('headerMonthProfit');
             const badgeTextEl = document.getElementById('headerMonthProfitText');
-            badgeTextEl.innerText = `+ Tháng này: ${formatMoney(monthTotalProfit)}`;
+            badgeTextEl.innerText = `${monthTotalProfit >= 0 ? '+' : ''} Tháng này: ${formatMoney(monthTotalProfit)}`;
             if (monthTotalProfit >= 0) {
                 badgeEl.className = 'text-xs font-bold px-3.5 py-2 rounded-lg border bg-emerald-50 text-emerald-600 border-emerald-200 flex items-center space-x-1.5 transition';
             } else {
