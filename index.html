@@ -1098,13 +1098,7 @@
                 if (user) {
                     updateLoginUI(user);
                 } else {
-                    // Check localStorage fallback user
-                    const localUser = localStorage.getItem('jacooodevn_fallback_user');
-                    if (localUser) {
-                        updateLoginUI(JSON.parse(localUser));
-                    } else {
-                        updateLogoutUI();
-                    }
+                    updateLogoutUI();
                 }
             });
         } catch (e) {
@@ -1118,21 +1112,13 @@
                     updateLoginUI(result.user);
                 }
             } catch (e) {
-                console.warn("Popup blocked or API error, switching to safe fallback session:", e);
-                // Smart fallback session so UI works seamlessly on GitHub Pages
-                const fallbackUser = {
-                    displayName: 'Linh Tran',
-                    email: 'linhtran2026@gmail.com',
-                    photoURL: ''
-                };
-                localStorage.setItem('jacooodevn_fallback_user', JSON.stringify(fallbackUser));
-                updateLoginUI(fallbackUser);
+                console.error("Google Auth Error:", e);
+                alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}`);
             }
         };
 
         window.handleLogout = async function() {
             try {
-                localStorage.removeItem('jacooodevn_fallback_user');
                 if (window.firebaseAuth && window.signOut) {
                     await window.signOut(window.firebaseAuth);
                 }
@@ -1257,16 +1243,10 @@
             try {
                 if (window.firebaseAuth && window.signInWithEmailAndPassword) {
                     await window.signInWithEmailAndPassword(window.firebaseAuth, email, pass);
-                } else {
-                    throw new Error("Firebase Auth not ready");
                 }
                 closeEmailAuthModal();
             } catch (e) {
-                // Fallback login simulation
-                const fallbackUser = { displayName: email.split('@')[0], email: email, photoURL: '' };
-                localStorage.setItem('jacooodevn_fallback_user', JSON.stringify(fallbackUser));
-                updateLoginUI(fallbackUser);
-                closeEmailAuthModal();
+                alert('Đăng nhập thất bại: ' + e.message);
             }
         }
 
@@ -1280,8 +1260,7 @@
                 alert('Đăng ký tài khoản thành công!');
                 closeEmailAuthModal();
             } catch (e) {
-                alert('Đăng ký thành công (Local Session)!');
-                closeEmailAuthModal();
+                alert('Đăng ký thất bại: ' + e.message);
             }
         }
 
