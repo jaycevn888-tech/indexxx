@@ -80,7 +80,7 @@
             <!-- Auth Section -->
             <div id="authContainer" class="flex items-center space-x-3 pl-4 border-l border-slate-200">
                 <div id="loggedOutView" class="flex items-center space-x-2">
-                    <button onclick="handleGoogleLogin()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
+                    <button onclick="signInWithGoogle()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
                         <i class="fa-brands fa-google text-red-500"></i>
                         <span>Đăng nhập Google</span>
                     </button>
@@ -1064,8 +1064,7 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInWithRedirect, 
-            getRedirectResult,
+            signInWithPopup,           // ← Using signInWithPopup to eliminate login loops
             GoogleAuthProvider, 
             signOut, 
             onAuthStateChanged,
@@ -1074,7 +1073,7 @@
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyAAwnd3wLLjryYJLRIQVQkF2csx94oYzn8",
+            apiKey: "AIzaSyAAwnd3wLLJryYJLRIQVKf2csx94oYzn8",
             authDomain: "jacooodevn-trading-journal.firebaseapp.com",
             projectId: "jacooodevn-trading-journal",
             storageBucket: "jacooodevn-trading-journal.firebasestorage.app",
@@ -1083,74 +1082,82 @@
             measurementId: "G-S7KFDB3WTK"
         };
 
-        let app, auth, googleProvider;
-        try {
-            app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            googleProvider = new GoogleAuthProvider();
-            window.firebaseAuth = auth;
-            window.googleProvider = googleProvider;
-            window.signOut = signOut;
-            window.signInWithEmailAndPassword = signInWithEmailAndPassword;
-            window.createUserWithEmailAndPassword = createUserWithEmailAndPassword;
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const googleProvider = new GoogleAuthProvider();
 
-            // Xử lý kết quả trả về khi Google chuyển hướng trang quay lại
-            getRedirectResult(auth).then((result) => {
-                if (result && result.user) {
-                    updateLoginUI(result.user);
-                }
-            }).catch((error) => {
-                console.error("Redirect auth error:", error);
-            });
+        window.firebaseAuth = auth;
+        window.googleProvider = googleProvider;
+        window.signOut = signOut;
 
-            onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    updateLoginUI(user);
+        // Global Google sign-in function using signInWithPopup
+        window.signInWithGoogle = async function() {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                console.log("Đăng nhập Google thành công:", result.user);
+                if (typeof window.updateLoginUI === 'function') {
+                    window.updateLoginUI(result.user);
                 } else {
-                    updateLogoutUI();
+                    window.location.reload();
                 }
-            });
-        } catch (e) {
-            console.error("Firebase init error:", e);
-        }
+            } catch (error) {
+                console.error("Lỗi đăng nhập Google:", error);
+                if (error.code === 'auth/popup-blocked') {
+                    alert("Popup bị chặn. Vui lòng cho phép popup cho trang này rồi thử lại.");
+                } else if (error.code === 'auth/popup-closed-by-user') {
+                    console.log("Người dùng đã đóng popup đăng nhập.");
+                } else {
+                    alert("Đăng nhập thất bại: " + error.message);
+                }
+            }
+        };
 
-        window.handleGoogleLogin = async function() {
+        window.handleEmailLogin = async function() {
+            const email = document.getElementById('authEmailInput').value;
+            const pass = document.getElementById('authPasswordInput').value;
             try {
-                if (window.firebaseAuth && window.googleProvider) {
-                    await signInWithRedirect(window.firebaseAuth, window.googleProvider);
-                }
+                await signInWithEmailAndPassword(auth, email, pass);
+                closeEmailAuthModal();
             } catch (e) {
-                console.error("Google Redirect Error:", e);
-                alert(`Đăng nhập Google thất bại!\nMã lỗi: ${e.code}\nChi tiết: ${e.message}`);
+                alert('Đăng nhập thất bại: ' + e.message);
             }
         };
 
-        window.handleLogout = async function() {
+        window.handleEmailRegister = async function() {
+            const email = document.getElementById('authEmailInput').value;
+            const pass = document.getElementById('authPasswordInput').value;
             try {
-                if (window.firebaseAuth && window.signOut) {
-                    await window.signOut(window.firebaseAuth);
-                }
-                updateLogoutUI();
-            } catch (e) { console.error(e); }
+                await createUserWithEmailAndPassword(auth, email, pass);
+                alert('Đăng ký tài khoản thành công!');
+                closeEmailAuthModal();
+            } catch (e) {
+                alert('Đăng ký thất bại: ' + e.message);
+            }
         };
 
-        function updateLoginUI(user) {
-            document.getElementById('loggedOutView').classList.add('hidden');
-            document.getElementById('loggedInView').classList.remove('hidden');
-            document.getElementById('userName').innerText = user.displayName || (user.email ? user.email.split('@')[0] : 'User');
-            document.getElementById('userEmail').innerText = user.email || 'user@gmail.com';
-            const avatar = document.getElementById('userAvatarContainer');
-            if (user.photoURL) {
-                avatar.innerHTML = `<img src="${user.photoURL}" class="w-full h-full rounded-full object-cover">`;
+        window.updateLoginUI = function(user) {
+            const loggedOutView = document.getElementById('loggedOutView');
+            const loggedInView = document.getElementById('loggedInView');
+            if (user) {
+                loggedOutView.classList.add('hidden');
+                loggedInView.classList.remove('hidden');
+                document.getElementById('userName').innerText = user.displayName || user.email.split('@')[0];
+                document.getElementById('userEmail').innerText = user.email || 'user@gmail.com';
+                const avatar = document.getElementById('userAvatarContainer');
+                if (user.photoURL) {
+                    avatar.innerHTML = `<img src="${user.photoURL}" class="w-full h-full rounded-full object-cover">`;
+                } else {
+                    avatar.innerText = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                }
             } else {
-                avatar.innerText = (user.displayName || user.email || 'U').charAt(0).toUpperCase();
+                loggedInView.classList.add('hidden');
+                loggedOutView.classList.remove('hidden');
             }
-        }
+        };
 
-        function updateLogoutUI() {
-            document.getElementById('loggedInView').classList.add('hidden');
-            document.getElementById('loggedOutView').classList.remove('hidden');
-        }
+        onAuthStateChanged(auth, (user) => {
+            window.updateLoginUI(user);
+        });
     </script>
 
     <script>
@@ -1220,7 +1227,7 @@
         };
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v12');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v15');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1235,7 +1242,7 @@
         }
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v12', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v15', JSON.stringify(appState));
         }
 
         function openEmailAuthModal() {
@@ -1245,31 +1252,12 @@
             document.getElementById('emailAuthModal').classList.add('hidden');
         }
 
-        async function handleEmailLogin() {
-            const email = document.getElementById('authEmailInput').value;
-            const pass = document.getElementById('authPasswordInput').value;
+        async function handleLogout() {
             try {
-                if (window.firebaseAuth && window.signInWithEmailAndPassword) {
-                    await window.signInWithEmailAndPassword(window.firebaseAuth, email, pass);
+                if (window.firebaseAuth && window.signOut) {
+                    await window.signOut(window.firebaseAuth);
                 }
-                closeEmailAuthModal();
-            } catch (e) {
-                alert('Đăng nhập thất bại: ' + e.message);
-            }
-        }
-
-        async function handleEmailRegister() {
-            const email = document.getElementById('authEmailInput').value;
-            const pass = document.getElementById('authPasswordInput').value;
-            try {
-                if (window.firebaseAuth && window.createUserWithEmailAndPassword) {
-                    await window.createUserWithEmailAndPassword(window.firebaseAuth, email, pass);
-                }
-                alert('Đăng ký tài khoản thành công!');
-                closeEmailAuthModal();
-            } catch (e) {
-                alert('Đăng ký thất bại: ' + e.message);
-            }
+            } catch (e) { console.error(e); }
         }
 
         function switchTab(tabId) {
@@ -1298,7 +1286,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v12');
+                localStorage.removeItem('jacooodevn_persistent_state_v15');
                 location.reload();
             }
         }
@@ -1347,11 +1335,12 @@
             grid.innerHTML = '';
 
             const filteredTrades = getFilteredTrades();
+
             const firstDayOfMonth = new Date(year, month, 1);
             const lastDayOfMonth = new Date(year, month + 1, 0);
             
-            let startDayOfWeek = firstDayOfMonth.getDay();
-            startDayOfWeek = (startDayOfWeek === 0) ? 6 : startDayOfWeek - 1;
+            let startDayOfWeek = firstDayOfMonth.getDay(); 
+            startDayOfWeek = (startDayOfWeek === 0) ? 6 : startDayOfWeek - 1; // Monday start (0=Mon, 6=Sun)
 
             const totalDaysInMonth = lastDayOfMonth.getDate();
             const prevMonthLastDate = new Date(year, month, 0).getDate();
@@ -1359,6 +1348,7 @@
             let weeks = [];
             let currentWeek = [];
 
+            // Leading days from previous month
             for (let i = startDayOfWeek - 1; i >= 0; i--) {
                 const dayNum = prevMonthLastDate - i;
                 const prevMonth = month === 0 ? 11 : month - 1;
@@ -1367,6 +1357,7 @@
                 currentWeek.push({ dayNum, dateStr, isCurrentMonth: false });
             }
 
+            // Current month days
             for (let d = 1; d <= totalDaysInMonth; d++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                 currentWeek.push({ dayNum: d, dateStr, isCurrentMonth: true });
@@ -1376,6 +1367,7 @@
                 }
             }
 
+            // Trailing days from next month
             let nextMonthDay = 1;
             while (currentWeek.length > 0 && currentWeek.length < 7) {
                 const nextMonth = month === 11 ? 0 : month + 1;
@@ -1421,6 +1413,7 @@
                     `;
                 });
 
+                // Weekly Total Column (8th column)
                 const isWeekLoss = weekPnl < 0;
                 const isWeekWin = weekPnl > 0;
                 const weekBgClass = isWeekLoss ? 'bg-rose-50/40 border-rose-200 text-rose-600' : (isWeekWin ? 'bg-emerald-50/40 border-emerald-200 text-emerald-600' : 'bg-white border-slate-200 text-slate-700');
@@ -1434,6 +1427,7 @@
                 `;
             });
 
+            // Dynamic Monthly Profit Badge
             const badgeEl = document.getElementById('headerMonthProfit');
             const badgeTextEl = document.getElementById('headerMonthProfitText');
             badgeTextEl.innerText = `${monthTotalProfit >= 0 ? '+' : ''} Tháng này: ${formatMoney(monthTotalProfit)}`;
@@ -1443,6 +1437,7 @@
                 badgeEl.className = 'text-xs font-bold px-3.5 py-2 rounded-lg border bg-rose-50 text-rose-600 border-rose-200 flex items-center space-x-1.5 transition';
             }
 
+            // Overview Stats
             const totalTrades = filteredTrades.length;
             const winTrades = filteredTrades.filter(t => t.pnl > 0).length;
             const lossTrades = filteredTrades.filter(t => t.pnl < 0).length;
@@ -1466,6 +1461,7 @@
             document.getElementById('gaugeWinCount').innerText = winTrades;
             document.getElementById('gaugeLossCount').innerText = lossTrades;
 
+            // Points calculation adapting to net profit outcome (positive/negative)
             const pointsMultiplier = netProfit >= 0 ? 1 : -1;
             const avgPts = (totalTrades > 0 ? (Math.abs(netProfit) / totalTrades) / 10 : 0) * pointsMultiplier;
             const maxPts = (totalTrades > 0 ? Math.abs(netProfit) / 10 : 0) * pointsMultiplier;
@@ -1628,7 +1624,7 @@
             const strip = document.getElementById('plannerWeekStrip');
             strip.innerHTML = '';
             const baseDate = new Date(selectedDate);
-            const dayOfWeek = baseDate.getDay();
+            const dayOfWeek = baseDate.getDay(); // 0 is Sunday
             const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
             
             const monday = new Date(baseDate);
@@ -2033,7 +2029,7 @@
             const filteredTrades = getFilteredTrades();
             filteredTrades.forEach(t => {
                 const d = new Date(t.date);
-                let jsDay = d.getDay();
+                let jsDay = d.getDay(); // 0 is Sunday, 1 is Monday
                 let idx = jsDay === 0 ? 6 : jsDay - 1;
                 counts[idx]++;
                 profits[idx] += Number(t.pnl);
@@ -2133,7 +2129,7 @@
 
             const filteredTrades = getFilteredTrades();
             filteredTrades.forEach(t => {
-                const m = new Date(t.date).getMonth();
+                const m = new Date(t.date).getMonth(); // 0-11
                 counts[m]++;
                 profits[m] += Number(t.pnl);
                 if (Number(t.pnl) > 0) wins[m]++;
