@@ -16,17 +16,9 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     colors: {
-                        brand: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8'
-                        }
+                        brand: { 50: '#eff6ff', 100: '#dbeafe', 500: '#3b82f6', 600: '#2563eb', 700: '#1d4ed8' }
                     }
                 }
             }
@@ -106,7 +98,6 @@
     </header>
 
     <div class="flex-1 flex overflow-hidden">
-        
         <!-- SIDEBAR -->
         <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between hidden lg:flex select-none">
             <div class="py-6 px-4 space-y-8 overflow-y-auto">
@@ -114,63 +105,50 @@
                     <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-3">General</h3>
                     <nav class="space-y-1">
                         <button onclick="switchTab('overview')" id="nav-overview" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-chart-pie w-5 text-center text-slate-500"></i>
-                            <span>Overview</span>
+                            <i class="fa-solid fa-chart-pie w-5 text-center text-slate-500"></i><span>Overview</span>
                         </button>
                         <button onclick="switchTab('planner')" id="nav-planner" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-calendar-days w-5 text-center text-slate-500"></i>
-                            <span>Daily Planner</span>
+                            <i class="fa-solid fa-calendar-days w-5 text-center text-slate-500"></i><span>Daily Planner</span>
                         </button>
                         <button onclick="switchTab('tradelog')" id="nav-tradelog" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-list-ul w-5 text-center text-slate-500"></i>
-                            <span>Trade Log</span>
+                            <i class="fa-solid fa-list-ul w-5 text-center text-slate-500"></i><span>Trade Log</span>
                         </button>
                         <button onclick="switchTab('winrate')" id="nav-winrate" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-percent w-5 text-center text-slate-500"></i>
-                            <span>Winrate Analysis</span>
+                            <i class="fa-solid fa-percent w-5 text-center text-slate-500"></i><span>Winrate Analysis</span>
                         </button>
                     </nav>
                 </div>
-
                 <div>
                     <h3 class="text-[10px] font-bold text-slate-400 uppercase tracking-wider px-3 mb-3">Time Analysis</h3>
                     <nav class="space-y-1">
                         <button onclick="switchTab('byday')" id="nav-byday" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-calendar-week w-5 text-center text-slate-500"></i>
-                            <span>By Day Of Week</span>
+                            <i class="fa-solid fa-calendar-week w-5 text-center text-slate-500"></i><span>By Day Of Week</span>
                         </button>
                         <button onclick="switchTab('weekly')" id="nav-weekly" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-chart-column w-5 text-center text-slate-500"></i>
-                            <span>Weekly Breakdown</span>
+                            <i class="fa-solid fa-chart-column w-5 text-center text-slate-500"></i><span>Weekly Breakdown</span>
                         </button>
                         <button onclick="switchTab('monthly')" id="nav-monthly" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-calendar-alt w-5 text-center text-slate-500"></i>
-                            <span>Monthly Results</span>
+                            <i class="fa-solid fa-calendar-alt w-5 text-center text-slate-500"></i><span>Monthly Results</span>
                         </button>
                         <button onclick="switchTab('hourly')" id="nav-hourly" class="w-full flex items-center space-x-3 px-3 py-2.5 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 transition">
-                            <i class="fa-solid fa-clock w-5 text-center text-slate-500"></i>
-                            <span>Hourly Performance (22 ICT Macros)</span>
+                            <i class="fa-solid fa-clock w-5 text-center text-slate-500"></i><span>Hourly Performance (22 ICT Macros)</span>
                         </button>
                     </nav>
                 </div>
             </div>
-
             <div class="p-4 border-t border-slate-200 text-center">
-                <span class="text-[11px] text-slate-400 font-medium">jacooodevn v2.6.5 Pro</span>
+                <span class="text-[11px] text-slate-400 font-medium">jacooodevn v2.6.5 Pro Cloud</span>
             </div>
         </aside>
 
         <!-- CONTENT VIEWPORT -->
         <main class="flex-1 flex flex-col overflow-y-auto bg-slate-50 p-6">
-            
             <!-- GLOBAL FILTER BAR -->
             <div class="bg-white rounded-xl border border-slate-200 p-3.5 mb-6 shadow-sm flex flex-wrap items-center justify-between gap-4">
                 <div class="flex flex-wrap items-center gap-3">
                     <div class="flex items-center space-x-2 text-xs font-bold text-blue-600 bg-blue-50 px-3 py-2 rounded-lg border border-blue-100">
-                        <i class="fa-solid fa-filter"></i>
-                        <span>BỘ LỌC</span>
+                        <i class="fa-solid fa-filter"></i><span>BỘ LỌC</span>
                     </div>
-                    
                     <div class="flex items-center space-x-2">
                         <span class="text-xs text-slate-500 font-medium">Tài khoản:</span>
                         <select id="filterAccount" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700">
@@ -179,7 +157,6 @@
                             <option value="Demo">Demo Account</option>
                         </select>
                     </div>
-
                     <div class="flex items-center space-x-2">
                         <span class="text-xs text-slate-500 font-medium">Setup:</span>
                         <select id="filterSetup" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700">
@@ -189,7 +166,6 @@
                             <option value="Breakout">Breakout</option>
                         </select>
                     </div>
-
                     <div class="flex items-center space-x-2">
                         <span class="text-xs text-slate-500 font-medium">Tag:</span>
                         <select id="filterTag" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700">
@@ -199,14 +175,12 @@
                             <option value="High Impact">High Impact</option>
                         </select>
                     </div>
-
                     <div class="flex items-center space-x-2 bg-slate-50 border border-slate-300 px-2.5 py-1.5 rounded-lg text-xs">
                         <input type="date" id="filterDateFrom" onchange="applyFilters()" class="bg-transparent text-slate-700 focus:outline-none font-medium">
                         <span class="text-slate-400">đến</span>
                         <input type="date" id="filterDateTo" onchange="applyFilters()" class="bg-transparent text-slate-700 focus:outline-none font-medium">
                     </div>
                 </div>
-
                 <div class="flex items-center space-x-2 text-xs font-semibold text-slate-600">
                     <i class="fa-regular fa-calendar-days text-blue-500"></i>
                     <span id="activeMonthDisplay">Tháng đang chọn: Tháng 7 / 2026</span>
@@ -215,7 +189,6 @@
 
             <!-- OVERVIEW TAB -->
             <div id="tab-overview" class="space-y-6 tab-content">
-                
                 <!-- Month Navigator & Monthly Profit Badge Combined -->
                 <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
                     <div class="flex items-center space-x-3">
@@ -254,7 +227,7 @@
                             <div class="text-[11px] font-bold text-blue-600 uppercase bg-blue-50 rounded py-0.5">HÀNG TUẦN</div>
                         </div>
                         <div id="calendarGrid" class="grid grid-cols-8 gap-2">
-                            <!-- Populated dynamically via renderCalendarGridMatrix -->
+                            <!-- Populated dynamically -->
                         </div>
                         <div class="mt-4 pt-3 border-t border-slate-100 text-center text-[11px] text-slate-400 italic">
                             * Nhấp chuột vào bất cứ ô ngày nào để chỉnh sửa trực tiếp thông số tại <strong>DAILY PLANNER</strong>
@@ -266,8 +239,7 @@
                         <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
                                 <h3 class="text-xs font-bold text-slate-800 flex items-center space-x-2">
-                                    <i class="fa-solid fa-chart-simple text-blue-500"></i>
-                                    <span>THỐNG KÊ TỔNG QUAN</span>
+                                    <i class="fa-solid fa-chart-simple text-blue-500"></i><span>THỐNG KÊ TỔNG QUAN</span>
                                 </h3>
                                 <span class="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">STANDARD</span>
                             </div>
@@ -285,8 +257,7 @@
                         <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm">
                             <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-100">
                                 <h3 class="text-xs font-bold text-slate-800 flex items-center space-x-2">
-                                    <i class="fa-solid fa-bullseye text-indigo-500"></i>
-                                    <span>THỐNG KÊ ĐIỂM (POINTS)</span>
+                                    <i class="fa-solid fa-bullseye text-indigo-500"></i><span>THỐNG KÊ ĐIỂM (POINTS)</span>
                                 </h3>
                                 <span class="text-[10px] font-bold text-indigo-600 bg-indigo-50 px-2 py-0.5 rounded">POINTS</span>
                             </div>
@@ -304,8 +275,7 @@
                     <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
                         <div>
                             <h3 class="text-xs font-bold text-slate-900 uppercase flex items-center space-x-2">
-                                <i class="fa-solid fa-shield-halved text-blue-600"></i>
-                                <span>ĐÁNH GIÁ HỆ THỐNG GIAO DỊCH CHUYÊN SÂU (ADVANCED METRICS EVALUATION)</span>
+                                <i class="fa-solid fa-shield-halved text-blue-600"></i><span>ĐÁNH GIÁ HỆ THỐNG GIAO DỊCH CHUYÊN SÂU (ADVANCED METRICS EVALUATION)</span>
                             </h3>
                             <p class="text-[11px] text-slate-500 mt-0.5">Phân tích chuyên sâu tích hợp biểu đồ Cumulative P&L, Profit Factor, Risk/Reward và Win Rate cùng 12 thẻ chỉ số.</p>
                         </div>
@@ -318,12 +288,9 @@
                                 <span class="text-xs font-bold text-slate-600 uppercase">CUMULATIVE P&L</span>
                                 <i class="fa-solid fa-chart-line text-blue-500"></i>
                             </div>
-                            <div class="h-32 w-full my-2">
-                                <canvas id="cumulativeChart"></canvas>
-                            </div>
+                            <div class="h-32 w-full my-2"><canvas id="cumulativeChart"></canvas></div>
                             <div class="flex justify-between text-[10px] text-slate-400 pt-2 border-t border-slate-200">
-                                <span>Bắt đầu</span>
-                                <span id="cumulTotalEnd" class="font-bold text-slate-700">$0</span>
+                                <span>Bắt đầu</span><span id="cumulTotalEnd" class="font-bold text-slate-700">$0</span>
                             </div>
                         </div>
 
@@ -385,7 +352,6 @@
                                 <div class="flex justify-between"><span class="text-slate-500">Avg Win:</span><strong id="cardExpAvgWin" class="text-emerald-600">$0</strong></div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
                             <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-600 uppercase">TOP SYMBOL</span><span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Top</span></div>
                             <div id="cardTopSymbolContainer" class="space-y-1 text-xs">
@@ -393,7 +359,6 @@
                                 <div class="text-[11px] text-slate-500">0 lệnh | 0% wr</div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
                             <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-600 uppercase">TOP SETUP</span><span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Top</span></div>
                             <div id="cardTopSetupContainer" class="space-y-1 text-xs">
@@ -401,7 +366,6 @@
                                 <div class="text-[11px] text-slate-500">0 lệnh | 0% wr</div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-3">
                             <div class="flex justify-between items-center"><span class="text-xs font-bold text-slate-600 uppercase">TOP TAG</span><span class="text-[10px] font-bold bg-blue-100 text-blue-700 px-2 py-0.5 rounded">Top</span></div>
                             <div id="cardTopTagContainer" class="space-y-1 text-xs">
@@ -420,7 +384,6 @@
                                 <div class="bg-white p-2 rounded border border-slate-200"><span class="text-[10px] text-slate-400 block">LEAST PROFITABLE</span><strong class="text-slate-600" id="cardLeastDuration">--</strong></div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">INTRADAY ACTIVITY</span>
                             <div class="space-y-1 pt-1 text-xs">
@@ -429,7 +392,6 @@
                                 <div class="flex justify-between"><span class="text-slate-500">Total Trades:</span><strong class="text-slate-800" id="cardTotalTradesCount">0</strong></div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">STREAK ANALYSIS</span>
                             <div class="space-y-1 pt-1 text-xs">
@@ -438,7 +400,6 @@
                                 <div class="flex justify-between"><span class="text-slate-500">Current Streak:</span><strong class="text-emerald-600" id="cardCurrentStreak">0 wins</strong></div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">CURRENT DRAWDOWN</span>
                             <div class="space-y-1 pt-1 text-xs">
@@ -455,19 +416,16 @@
                             <div class="text-2xl font-black text-slate-800 my-2" id="cardRecoveryFactor">0.00</div>
                             <div class="text-[11px] text-slate-500 flex justify-between"><span id="cardRecNet">Net: $0</span><span id="cardRecDD">DD: $0</span></div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">CONSISTENCY</span>
                             <div class="text-2xl font-black text-slate-800 my-2" id="cardConsistency">0.00</div>
                             <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full w-full" id="consistencyBar"></div></div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">SHARPE RATIO</span>
                             <div class="text-2xl font-black text-slate-800 my-2" id="cardSharpe">0.00</div>
                             <div class="text-[11px] text-slate-500" id="cardSharpeSub">Total Return: 0%</div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 space-y-2">
                             <span class="text-xs font-bold text-slate-600 uppercase block">SORTINO RATIO</span>
                             <div class="text-2xl font-black text-slate-800 my-2" id="cardSortino">0.00</div>
@@ -482,8 +440,7 @@
                 <div class="bg-white rounded-xl border border-slate-200 p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
                         <h2 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-calendar-days text-blue-600"></i>
-                            <span>DAILY PLANNER & KẾ HOẠCH NGÀY</span>
+                            <i class="fa-solid fa-calendar-days text-blue-600"></i><span>DAILY PLANNER & KẾ HOẠCH NGÀY</span>
                         </h2>
                         <p class="text-xs text-slate-500 mt-0.5">Cân bằng tâm lý, thiết lập mục tiêu và định hình xu hướng ngày giao dịch.</p>
                     </div>
@@ -509,8 +466,7 @@
                     <div class="lg:col-span-5 bg-white rounded-xl border border-slate-200 p-5 shadow-sm space-y-6">
                         <div>
                             <h3 class="text-xs font-bold text-slate-800 uppercase mb-3 flex items-center space-x-2">
-                                <i class="fa-solid fa-face-smile text-blue-600"></i>
-                                <span>ĐÁNH GIÁ PHIÊN</span>
+                                <i class="fa-solid fa-face-smile text-blue-600"></i><span>ĐÁNH GIÁ PHIÊN</span>
                             </h3>
                             <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-4">
                                 <span class="text-xs text-slate-500 font-medium block mb-1">P&L NGÀY ĐÃ CHỌN</span>
@@ -539,8 +495,7 @@
 
                         <div>
                             <div class="flex justify-between items-center text-xs font-bold text-slate-700 mb-2">
-                                <span>ĐÁNH GIÁ NGÀY HÔM NAY</span>
-                                <span id="ratingSliderVal" class="text-blue-600 font-black">50 / 100</span>
+                                <span>ĐÁNH GIÁ NGÀY HÔM NAY</span><span id="ratingSliderVal" class="text-blue-600 font-black">50 / 100</span>
                             </div>
                             <input type="range" id="plannerRatingRange" min="0" max="100" value="50" oninput="updateRatingSliderVal(this.value)" class="w-full accent-blue-600 cursor-pointer">
                         </div>
@@ -550,28 +505,21 @@
                         <div class="space-y-4">
                             <div class="flex items-center justify-between pb-2 border-b border-slate-100">
                                 <h3 class="text-xs font-bold text-slate-800 uppercase flex items-center space-x-2">
-                                    <i class="fa-solid fa-list-check text-blue-600"></i>
-                                    <span>MỤC TIÊU TRONG NGÀY (DAILY GOALS)</span>
+                                    <i class="fa-solid fa-list-check text-blue-600"></i><span>MỤC TIÊU TRONG NGÀY (DAILY GOALS)</span>
                                 </h3>
                                 <button onclick="addDailyGoal()" class="text-xs text-blue-600 hover:text-blue-700 font-bold flex items-center space-x-1">
                                     <i class="fa-solid fa-plus"></i> <span>Thêm mục tiêu</span>
                                 </button>
                             </div>
-
-                            <div id="dailyGoalsContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1">
-                                <!-- Populated dynamically -->
-                            </div>
-
+                            <div id="dailyGoalsContainer" class="space-y-2 max-h-40 overflow-y-auto pr-1"></div>
                             <div class="pt-2">
                                 <label class="text-xs font-bold text-slate-700 block mb-2">GHI CHÚ & PHÂN TÍCH PHIÊN (SESSION NOTES)</label>
                                 <textarea id="plannerSessionNotes" rows="6" oninput="saveSessionNotesLive(this.value)" class="w-full text-xs bg-slate-50 border border-slate-300 rounded-lg p-3 focus:outline-none focus:border-blue-500 text-slate-700 font-medium" placeholder="Nhập nhận định thị trường..."></textarea>
                             </div>
                         </div>
-
                         <div class="mt-6 pt-4 border-t border-slate-100">
                             <button onclick="savePlannerData()" class="w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold py-3 rounded-lg shadow-md shadow-blue-500/20 transition flex items-center justify-center space-x-2">
-                                <i class="fa-solid fa-floppy-disk"></i>
-                                <span>Lưu Kế Hoạch & Ghi Chú Ngày</span>
+                                <i class="fa-solid fa-floppy-disk"></i><span>Lưu Kế Hoạch & Ghi Chú Ngày</span>
                             </button>
                         </div>
                     </div>
@@ -583,8 +531,7 @@
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
                     <div>
                         <h2 class="text-sm font-bold text-slate-900 flex items-center space-x-2">
-                            <i class="fa-solid fa-list-ul text-blue-600"></i>
-                            <span>DANH SÁCH NHẬT KÝ GIAO DỊCH (TRADE LOG)</span>
+                            <i class="fa-solid fa-list-ul text-blue-600"></i><span>DANH SÁCH NHẬT KÝ GIAO DỊCH (TRADE LOG)</span>
                         </h2>
                         <p class="text-xs text-slate-500 mt-0.5">Danh sách các vị thế giao dịch chi tiết đồng bộ hoàn hảo với dữ liệu lịch biểu.</p>
                     </div>
@@ -597,7 +544,6 @@
                         </button>
                     </div>
                 </div>
-
                 <div class="bg-white rounded-xl border border-slate-200 shadow-sm overflow-hidden">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
@@ -619,9 +565,7 @@
                                     <th class="p-3.5 text-center">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody id="tradeLogTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
-                                <!-- Populated dynamically -->
-                            </tbody>
+                            <tbody id="tradeLogTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -632,7 +576,6 @@
                 <div class="bg-white rounded-xl border border-slate-200 p-5 shadow-sm">
                     <h2 class="text-sm font-bold text-slate-900 mb-1">WINRATE & PERFORMANCE ANALYSIS</h2>
                     <p class="text-xs text-slate-500 mb-6">Thống kê chi tiết tỷ lệ thắng, lệnh thắng và lệnh thua trong hệ thống.</p>
-
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col items-center justify-center">
                             <h3 class="text-xs font-bold text-slate-600 uppercase mb-4 self-start">WIN RATE GAUGE</h3>
@@ -644,15 +587,11 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-5 flex flex-col justify-between">
                             <h3 class="text-xs font-bold text-slate-600 uppercase mb-3">CUMULATIVE P&L CHART</h3>
-                            <div class="h-44 w-full">
-                                <canvas id="winrateCumulativeChart"></canvas>
-                            </div>
+                            <div class="h-44 w-full"><canvas id="winrateCumulativeChart"></canvas></div>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="bg-emerald-50/50 border border-emerald-200 rounded-xl p-5 space-y-3">
                             <h3 class="text-xs font-bold text-emerald-700 uppercase pb-2 border-b border-emerald-200">WINS SUMMARY</h3>
@@ -663,7 +602,6 @@
                                 <div class="flex justify-between py-1"><span class="text-slate-600">Lệnh Thắng Lớn Nhất</span><strong class="text-emerald-700" id="winSumMax">$0</strong></div>
                             </div>
                         </div>
-
                         <div class="bg-rose-50/50 border border-rose-200 rounded-xl p-5 space-y-3">
                             <h3 class="text-xs font-bold text-rose-700 uppercase pb-2 border-b border-rose-200">LOSSES SUMMARY</h3>
                             <div class="space-y-2 text-xs">
@@ -691,21 +629,14 @@
                             <div class="h-64"><canvas id="dayPerfChart"></canvas></div>
                         </div>
                     </div>
-
                     <div class="overflow-x-auto border border-slate-200 rounded-xl">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase">
-                                    <th class="p-3.5">DAY</th>
-                                    <th class="p-3.5">NET PROFIT</th>
-                                    <th class="p-3.5">TRADES</th>
-                                    <th class="p-3.5">VOLUMES</th>
-                                    <th class="p-3.5">WIN RATE</th>
+                                    <th class="p-3.5">DAY</th><th class="p-3.5">NET PROFIT</th><th class="p-3.5">TRADES</th><th class="p-3.5">VOLUMES</th><th class="p-3.5">WIN RATE</th>
                                 </tr>
                             </thead>
-                            <tbody id="dayOfWeekTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
-                                <!-- Populated dynamically -->
-                            </tbody>
+                            <tbody id="dayOfWeekTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -725,21 +656,14 @@
                             <div class="h-64"><canvas id="weekPerfChart"></canvas></div>
                         </div>
                     </div>
-
                     <div class="overflow-x-auto border border-slate-200 rounded-xl">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase">
-                                    <th class="p-3.5">WEEK</th>
-                                    <th class="p-3.5">NET PROFIT</th>
-                                    <th class="p-3.5">TRADES</th>
-                                    <th class="p-3.5">VOLUMES</th>
-                                    <th class="p-3.5">WIN RATE</th>
+                                    <th class="p-3.5">WEEK</th><th class="p-3.5">NET PROFIT</th><th class="p-3.5">TRADES</th><th class="p-3.5">VOLUMES</th><th class="p-3.5">WIN RATE</th>
                                 </tr>
                             </thead>
-                            <tbody id="weeklyTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
-                                <!-- Populated dynamically -->
-                            </tbody>
+                            <tbody id="weeklyTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -754,7 +678,6 @@
                             <p class="text-xs text-slate-500 mt-0.5">Phân tích hiệu suất giao dịch và tần suất giao dịch phân bố theo các tháng trong năm.</p>
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
                         <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
                             <h3 class="text-xs font-bold text-slate-600 uppercase mb-3">TRADES DISTRIBUTION BY MONTH</h3>
@@ -765,21 +688,14 @@
                             <div class="h-64"><canvas id="monthlyPerfChart"></canvas></div>
                         </div>
                     </div>
-
                     <div class="overflow-x-auto border border-slate-200 rounded-xl">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase">
-                                    <th class="p-3.5">MONTH</th>
-                                    <th class="p-3.5">NET PROFIT</th>
-                                    <th class="p-3.5">TRADES</th>
-                                    <th class="p-3.5">VOLUMES</th>
-                                    <th class="p-3.5">WIN RATE</th>
+                                    <th class="p-3.5">MONTH</th><th class="p-3.5">NET PROFIT</th><th class="p-3.5">TRADES</th><th class="p-3.5">VOLUMES</th><th class="p-3.5">WIN RATE</th>
                                 </tr>
                             </thead>
-                            <tbody id="monthlyTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
-                                <!-- Populated dynamically -->
-                            </tbody>
+                            <tbody id="monthlyTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
@@ -799,26 +715,18 @@
                             <div class="h-64"><canvas id="macroPerfChart"></canvas></div>
                         </div>
                     </div>
-
                     <div class="overflow-x-auto border border-slate-200 rounded-xl">
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-50 border-b border-slate-200 text-[11px] font-bold text-slate-500 uppercase">
-                                    <th class="p-3.5">ICT MACRO INTERVAL</th>
-                                    <th class="p-3.5">NET PROFIT</th>
-                                    <th class="p-3.5">TRADES</th>
-                                    <th class="p-3.5">VOLUMES</th>
-                                    <th class="p-3.5">WIN RATE</th>
+                                    <th class="p-3.5">ICT MACRO INTERVAL</th><th class="p-3.5">NET PROFIT</th><th class="p-3.5">TRADES</th><th class="p-3.5">VOLUMES</th><th class="p-3.5">WIN RATE</th>
                                 </tr>
                             </thead>
-                            <tbody id="macroTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700">
-                                <!-- Populated dynamically -->
-                            </tbody>
+                            <tbody id="macroTableBody" class="divide-y divide-slate-100 text-xs font-medium text-slate-700"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </main>
     </div>
 
@@ -830,14 +738,10 @@
                     <i class="fa-solid fa-plus-circle text-blue-500"></i>
                     <h3 class="font-bold text-sm tracking-wide" id="tradeModalTitle">+ THÊM GIAO DỊCH MỚI</h3>
                 </div>
-                <button onclick="closeTradeModal()" class="text-slate-400 hover:text-white transition">
-                    <i class="fa-solid fa-xmark text-lg"></i>
-                </button>
+                <button onclick="closeTradeModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            
             <div class="p-6 space-y-4 max-h-[75vh] overflow-y-auto text-xs">
                 <input type="hidden" id="editTradeId">
-                
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Tài khoản ghi nhận</label>
@@ -851,7 +755,6 @@
                         <input type="date" id="modalDate" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Mã Giao Dịch (Ticker)</label>
@@ -865,7 +768,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Giá vào lệnh (Entry Price)</label>
@@ -876,7 +778,6 @@
                         <input type="number" step="any" id="modalClose" oninput="calculateTradeResults()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500" placeholder="e.g. 20100">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Số lượng giao dịch (Volume / Lots)</label>
@@ -887,7 +788,6 @@
                         <input type="number" step="any" id="modalFees" value="10" oninput="calculateTradeResults()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Kết quả P&L ($)</label>
@@ -898,7 +798,6 @@
                         <input type="number" step="any" id="modalReturnPct" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-bold text-emerald-600 focus:outline-none focus:border-blue-500" placeholder="e.g. 1.16">
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Trading Setup / Chiến lược</label>
@@ -917,7 +816,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div>
                     <label class="font-bold text-slate-700 block mb-1.5">Các yếu tố hợp lưu (SMC / ICT Concepts)</label>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 bg-slate-50 p-3 rounded-xl border border-slate-200">
@@ -930,12 +828,10 @@
                         <label class="flex items-center space-x-2 cursor-pointer"><input type="checkbox" name="smcConfluence" value="iFVG" class="accent-blue-600"> <span>iFVG</span></label>
                     </div>
                 </div>
-
                 <div>
                     <label class="font-bold text-slate-700 block mb-1">Nội dung ghi chú về lệnh (Trade Content / Notes)</label>
                     <textarea id="modalNotes" rows="3" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500" placeholder="Nhập lý do vào lệnh..."></textarea>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Thời lượng nắm giữ (Duration)</label>
@@ -973,7 +869,6 @@
                         </select>
                     </div>
                 </div>
-
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Link biểu đồ TradingView</label>
@@ -989,14 +884,12 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Instant Image Preview Box -->
                 <div id="imagePreviewContainer" class="hidden mt-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
                     <span class="text-[11px] font-bold text-slate-500 block mb-1.5">Xem trước ảnh (Instant Preview):</span>
                     <img id="modalImgPreview" src="" class="h-32 rounded-lg object-contain border border-slate-300 shadow-sm">
                 </div>
             </div>
-
             <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end space-x-3">
                 <button onclick="closeTradeModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs transition">Hủy</button>
                 <button onclick="saveTradeRecord()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold px-5 py-2 rounded-lg text-xs shadow-md shadow-blue-500/20 transition">Lưu Giao Dịch</button>
@@ -1064,16 +957,26 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { 
             getAuth, 
-            signInWithPopup,           // ← Using signInWithPopup to eliminate login loops
+            signInWithPopup, 
             GoogleAuthProvider, 
             signOut, 
             onAuthStateChanged,
             signInWithEmailAndPassword,
             createUserWithEmailAndPassword
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { 
+            getFirestore, 
+            doc, 
+            setDoc, 
+            getDoc, 
+            collection, 
+            getDocs, 
+            deleteDoc, 
+            onSnapshot 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         const firebaseConfig = {
-            apiKey: "AIzaSyAAwnd3wLLjryYJLRIQVQkF2csx94oYzn8",
+            apiKey: "AIzaSyAAwnd3wLLJryYJLRIQVKf2csx94oYzn8",
             authDomain: "jacooodevn-trading-journal.firebaseapp.com",
             projectId: "jacooodevn-trading-journal",
             storageBucket: "jacooodevn-trading-journal.firebasestorage.app",
@@ -1084,28 +987,34 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
 
         window.firebaseAuth = auth;
         window.googleProvider = googleProvider;
         window.signOut = signOut;
+        window.db = db;
+        window.doc = doc;
+        window.setDoc = setDoc;
+        window.getDoc = getDoc;
+        window.collection = collection;
+        window.getDocs = getDocs;
+        window.deleteDoc = deleteDoc;
+        window.onSnapshot = onSnapshot;
 
-        // Global Google sign-in function using signInWithPopup
         window.signInWithGoogle = async function() {
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 console.log("Đăng nhập Google thành công:", result.user);
                 if (typeof window.updateLoginUI === 'function') {
                     window.updateLoginUI(result.user);
-                } else {
-                    window.location.reload();
                 }
             } catch (error) {
                 console.error("Lỗi đăng nhập Google:", error);
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup bị chặn. Vui lòng cho phép popup cho trang này rồi thử lại.");
                 } else if (error.code === 'auth/popup-closed-by-user') {
-                    console.log("Người dùng đã đóng popup đăng nhập.");
+                    console.log("Người dùng đã đóng popup.");
                 } else {
                     alert("Đăng nhập thất bại: " + error.message);
                 }
@@ -1155,8 +1064,13 @@
             }
         };
 
-        onAuthStateChanged(auth, (user) => {
+        onAuthStateChanged(auth, async (user) => {
             window.updateLoginUI(user);
+            if (user) {
+                await window.syncDataFromCloud(user.uid);
+            } else {
+                window.loadLocalStateFallback();
+            }
         });
     </script>
 
@@ -1187,32 +1101,11 @@
                     setup: 'Reversal',
                     tag: 'Discipline',
                     confluences: ['SMT', 'FVG'],
-                    notes: 'Lệnh này cả ngày nó chạy nhiều rồi nhưng vẫn còn 1 cái PWL và khi mở cửa giá đi lên...',
+                    notes: 'Lệnh mẫu Reversal M1.',
                     duration: '10m',
                     hour: '09:30-09:40',
                     tvLink: 'https://www.tradingview.com/x/example',
                     chartImg: 'https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart+NQ'
-                },
-                {
-                    id: 't-2',
-                    account: 'Live',
-                    date: '2026-07-15',
-                    symbol: 'NQ',
-                    type: 'LONG',
-                    entry: 19500,
-                    close: 19750,
-                    volume: 2,
-                    fees: 10,
-                    pnl: -2300,
-                    returnPct: -2.30,
-                    setup: 'Continuation',
-                    tag: 'Discipline',
-                    confluences: ['FVG', 'OB'],
-                    notes: 'Test stop loss zone.',
-                    duration: '30m',
-                    hour: '10:10-10:20',
-                    tvLink: '',
-                    chartImg: 'https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart+2'
                 }
             ],
             planners: {
@@ -1226,8 +1119,49 @@
             }
         };
 
+        async function syncDataFromCloud(uid) {
+            try {
+                // Fetch user specific data from Firestore under /users/{uid}
+                const userDocRef = window.doc(window.db, "users", uid);
+                const userSnap = await window.getDoc(userDocRef);
+                if (userSnap.exists()) {
+                    const data = userSnap.data();
+                    if (data.trades) appState.trades = data.trades;
+                    if (data.planners) appState.planners = data.planners;
+                    if (data.accounts) appState.accounts = data.accounts;
+                } else {
+                    // Initialize cloud with default state
+                    await window.setDoc(userDocRef, {
+                        trades: appState.trades,
+                        planners: appState.planners,
+                        accounts: appState.accounts
+                    });
+                }
+            } catch (e) {
+                console.error("Cloud sync error:", e);
+            }
+            saveAppState();
+            switchTab(appState.currentTab);
+        }
+
+        async function saveCloudData() {
+            const user = window.firebaseAuth?.currentUser;
+            if (user) {
+                try {
+                    const userDocRef = window.doc(window.db, "users", user.uid);
+                    await window.setDoc(userDocRef, {
+                        trades: appState.trades,
+                        planners: appState.planners,
+                        accounts: appState.accounts
+                    }, { merge: true });
+                } catch (e) {
+                    console.error("Error saving to cloud:", e);
+                }
+            }
+        }
+
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v15');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v16');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1241,16 +1175,18 @@
             document.getElementById('overviewYear').value = appState.currentYear;
         }
 
+        window.loadLocalStateFallback = function() {
+            loadAppState();
+            switchTab(appState.currentTab);
+        };
+
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v15', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v16', JSON.stringify(appState));
+            saveCloudData();
         }
 
-        function openEmailAuthModal() {
-            document.getElementById('emailAuthModal').classList.remove('hidden');
-        }
-        function closeEmailAuthModal() {
-            document.getElementById('emailAuthModal').classList.add('hidden');
-        }
+        function openEmailAuthModal() { document.getElementById('emailAuthModal').classList.remove('hidden'); }
+        function closeEmailAuthModal() { document.getElementById('emailAuthModal').classList.add('hidden'); }
 
         async function handleLogout() {
             try {
@@ -1286,7 +1222,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v15');
+                localStorage.removeItem('jacooodevn_persistent_state_v16');
                 location.reload();
             }
         }
@@ -1303,6 +1239,14 @@
         let chartInstances = {};
 
         function formatMoney(amount) {
+            const num = Number(amount) || 0;
+            const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+            if (num > 0) return `+$${absVal}`;
+            if (num < 0) return `-$${absVal}`;
+            return `+$0`;
+        }
+
+        function formatPnlString(amount) {
             const num = Number(amount) || 0;
             const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
             if (num > 0) return `+$${absVal}`;
@@ -1335,7 +1279,6 @@
             grid.innerHTML = '';
 
             const filteredTrades = getFilteredTrades();
-
             const firstDayOfMonth = new Date(year, month, 1);
             const lastDayOfMonth = new Date(year, month + 1, 0);
             
@@ -1348,7 +1291,6 @@
             let weeks = [];
             let currentWeek = [];
 
-            // Leading days from previous month
             for (let i = startDayOfWeek - 1; i >= 0; i--) {
                 const dayNum = prevMonthLastDate - i;
                 const prevMonth = month === 0 ? 11 : month - 1;
@@ -1357,7 +1299,6 @@
                 currentWeek.push({ dayNum, dateStr, isCurrentMonth: false });
             }
 
-            // Current month days
             for (let d = 1; d <= totalDaysInMonth; d++) {
                 const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                 currentWeek.push({ dayNum: d, dateStr, isCurrentMonth: true });
@@ -1367,7 +1308,6 @@
                 }
             }
 
-            // Trailing days from next month
             let nextMonthDay = 1;
             while (currentWeek.length > 0 && currentWeek.length < 7) {
                 const nextMonth = month === 11 ? 0 : month + 1;
@@ -1407,7 +1347,7 @@
                                 <span class="text-[10px] text-slate-400">${hasTrade && dayObj.isCurrentMonth ? dayTrades.length + ' gd' : ''}</span>
                             </div>
                             <div class="text-center">
-                                ${hasTrade && dayObj.isCurrentMonth ? `<span class="${pnlClass} text-xs">${formatMoney(dayPnl)}</span>` : '<span class="text-slate-300 text-[10px]">Trống</span>'}
+                                ${hasTrade && dayObj.isCurrentMonth ? `<span class="${pnlClass} text-xs">${formatPnlString(dayPnl)}</span>` : '<span class="text-slate-300 text-[10px]">Trống</span>'}
                             </div>
                         </div>
                     `;
@@ -1421,7 +1361,7 @@
                 grid.innerHTML += `
                     <div class="${weekBgClass} border rounded-xl p-2 h-24 flex flex-col justify-between items-center shadow-sm">
                         <span class="text-[10px] font-bold text-blue-600">TỔNG</span>
-                        <span class="text-xs font-black">${formatMoney(weekPnl)}</span>
+                        <span class="text-xs font-black">${formatPnlString(weekPnl)}</span>
                         <span class="text-[9px] text-slate-400">${weekTradesCount} gd</span>
                     </div>
                 `;
@@ -1430,14 +1370,13 @@
             // Dynamic Monthly Profit Badge
             const badgeEl = document.getElementById('headerMonthProfit');
             const badgeTextEl = document.getElementById('headerMonthProfitText');
-            badgeTextEl.innerText = `${monthTotalProfit >= 0 ? '+' : ''} Tháng này: ${formatMoney(monthTotalProfit)}`;
+            badgeTextEl.innerText = `${monthTotalProfit >= 0 ? '+' : ''} Tháng này: ${formatPnlString(monthTotalProfit)}`;
             if (monthTotalProfit >= 0) {
                 badgeEl.className = 'text-xs font-bold px-3.5 py-2 rounded-lg border bg-emerald-50 text-emerald-600 border-emerald-200 flex items-center space-x-1.5 transition';
             } else {
                 badgeEl.className = 'text-xs font-bold px-3.5 py-2 rounded-lg border bg-rose-50 text-rose-600 border-rose-200 flex items-center space-x-1.5 transition';
             }
 
-            // Overview Stats
             const totalTrades = filteredTrades.length;
             const winTrades = filteredTrades.filter(t => t.pnl > 0).length;
             const lossTrades = filteredTrades.filter(t => t.pnl < 0).length;
@@ -1454,14 +1393,13 @@
             document.getElementById('stat-win-trades').innerText = winTrades;
             document.getElementById('stat-loss-trades').innerText = lossTrades;
             document.getElementById('stat-win-rate').innerText = winRateStr;
-            document.getElementById('stat-net-profit').innerText = formatMoney(netProfit);
+            document.getElementById('stat-net-profit').innerText = formatPnlString(netProfit);
             document.getElementById('stat-return-pct').innerText = returnPctStr;
-            document.getElementById('cumulTotalEnd').innerText = formatMoney(netProfit);
+            document.getElementById('cumulTotalEnd').innerText = formatPnlString(netProfit);
 
             document.getElementById('gaugeWinCount').innerText = winTrades;
             document.getElementById('gaugeLossCount').innerText = lossTrades;
 
-            // Points calculation adapting to net profit outcome (positive/negative)
             const pointsMultiplier = netProfit >= 0 ? 1 : -1;
             const avgPts = (totalTrades > 0 ? (Math.abs(netProfit) / totalTrades) / 10 : 0) * pointsMultiplier;
             const maxPts = (totalTrades > 0 ? Math.abs(netProfit) / 10 : 0) * pointsMultiplier;
@@ -1586,21 +1524,21 @@
             document.getElementById('advAvgLoss').innerText = `Avg Loss: -$${avgLoss.toFixed(0)}`;
 
             const expectancy = totalTrades > 0 ? netProfit / totalTrades : 0;
-            document.getElementById('cardExpectancy').innerText = formatMoney(expectancy);
+            document.getElementById('cardExpectancy').innerText = formatPnlString(expectancy);
             document.getElementById('cardExpWinRate').innerText = totalTrades > 0 ? ((wins/totalTrades)*100).toFixed(0) + '%' : '0%';
             document.getElementById('cardExpAvgWin').innerText = `+$${avgWin.toFixed(0)}`;
 
             if (totalTrades > 0) {
-                document.getElementById('cardTopSymbolContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>NQ</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatMoney(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
-                document.getElementById('cardTopSetupContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>REVERSAL</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatMoney(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
-                document.getElementById('cardTopTagContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>DISCIPLINE</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatMoney(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
+                document.getElementById('cardTopSymbolContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>NQ</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatPnlString(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
+                document.getElementById('cardTopSetupContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>REVERSAL</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatPnlString(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
+                document.getElementById('cardTopTagContainer').innerHTML = `<div class="flex justify-between font-bold text-slate-800"><span>DISCIPLINE</span><span class="${netProfit>=0?'text-emerald-600':'text-rose-600'}">${formatPnlString(netProfit)}</span></div><div class="text-[11px] text-slate-500">${totalTrades} lệnh | ${((wins/totalTrades)*100).toFixed(0)}% wr</div>`;
             }
 
             document.getElementById('cardTotalTradesCount').innerText = totalTrades;
             document.getElementById('cardLongestWin').innerText = `${wins} trades`;
             document.getElementById('cardLongestLoss').innerText = `${losses} trades`;
             document.getElementById('cardCurrentStreak').innerText = `${wins} wins`;
-            document.getElementById('cardPeakVal').innerText = formatMoney(Math.max(0, netProfit));
+            document.getElementById('cardPeakVal').innerText = formatPnlString(Math.max(0, netProfit));
             document.getElementById('cardMaxDD').innerText = `$0`;
             document.getElementById('cardRecoveryFactor').innerText = grossLoss > 0 ? (netProfit / grossLoss).toFixed(2) : (netProfit > 0 ? '15.00' : '0.00');
             document.getElementById('cardConsistency').innerText = '1.00';
@@ -1615,7 +1553,7 @@
             const dayPnl = dayTrades.reduce((s, t) => s + Number(t.pnl), 0);
             
             const pnlEl = document.getElementById('plannerSelectedDatePnL');
-            pnlEl.innerText = formatMoney(dayPnl);
+            pnlEl.innerText = formatPnlString(dayPnl);
             pnlEl.className = dayPnl > 0 ? 'text-xl font-black text-emerald-600' : (dayPnl < 0 ? 'text-xl font-black text-rose-600' : 'text-xl font-black text-slate-800');
 
             const planData = appState.planners[selectedDate] || {};
@@ -1624,7 +1562,7 @@
             const strip = document.getElementById('plannerWeekStrip');
             strip.innerHTML = '';
             const baseDate = new Date(selectedDate);
-            const dayOfWeek = baseDate.getDay(); // 0 is Sunday
+            const dayOfWeek = baseDate.getDay(); 
             const mondayOffset = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
             
             const monday = new Date(baseDate);
@@ -1644,22 +1582,23 @@
                 const borderClass = isSelected ? 'border-blue-600 bg-blue-50/30 ring-2 ring-blue-500/20' : 'border-slate-200 bg-white';
                 const dayNames = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'];
                 const dPnlClass = dPnl > 0 ? 'text-emerald-600 font-bold' : (dPnl < 0 ? 'text-rose-600 font-bold' : 'text-slate-400');
+                const dayBgCard = dPnl > 0 ? 'bg-emerald-50/40 border-emerald-200' : (dPnl < 0 ? 'bg-rose-50/40 border-rose-200' : borderClass);
 
                 strip.innerHTML += `
-                    <div onclick="selectPlannerDate('${dStr}')" class="${borderClass} border rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:shadow transition">
+                    <div onclick="selectPlannerDate('${dStr}')" class="${dayBgCard} border rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:shadow transition">
                         <div class="flex justify-between items-center text-xs">
                             <span class="font-bold text-slate-700">${dayNames[i]}</span>
                             <span class="text-[10px] text-slate-400">${d.getDate()}/${d.getMonth()+1}</span>
                         </div>
                         <div class="text-center my-2">
-                            ${dTrades.length > 0 ? `<span class="text-xs ${dPnlClass}">${formatMoney(dPnl)}</span><div class="text-[10px] text-slate-400">(${dTrades.length} gd)</div>` : '<span class="text-slate-300 text-[10px]">Trống</span>'}
+                            ${dTrades.length > 0 ? `<span class="text-xs ${dPnlClass}">${formatPnlString(dPnl)}</span><div class="text-[10px] text-slate-400">(${dTrades.length} gd)</div>` : '<span class="text-slate-300 text-[10px]">Trống</span>'}
                         </div>
                     </div>
                 `;
             }
 
             const weekTotalEl = document.getElementById('plannerWeekTotalProfit');
-            weekTotalEl.innerText = `TỔNG P&L TUẦN: ${formatMoney(weekProfitSum)}`;
+            weekTotalEl.innerText = `TỔNG P&L TUẦN: ${formatPnlString(weekProfitSum)}`;
             if (weekProfitSum > 0) {
                 weekTotalEl.className = 'text-xs font-bold px-3 py-1.5 rounded-lg border bg-emerald-50 text-emerald-600 border-emerald-200 flex items-center space-x-1.5';
             } else if (weekProfitSum < 0) {
@@ -1797,7 +1736,7 @@
             
             const filteredTrades = getFilteredTrades();
             filteredTrades.forEach((t) => {
-                const pnlFormatted = formatMoney(t.pnl);
+                const pnlFormatted = formatPnlString(t.pnl);
                 const pnlColor = Number(t.pnl) > 0 ? 'text-emerald-600 font-bold' : (Number(t.pnl) < 0 ? 'text-rose-600 font-bold' : 'text-slate-800');
                 const retColor = Number(t.returnPct) > 0 ? 'text-emerald-600 font-bold' : (Number(t.returnPct) < 0 ? 'text-rose-600 font-bold' : 'text-slate-800');
                 
@@ -1884,9 +1823,7 @@
             }
         }
 
-        function closeTradeModal() {
-            document.getElementById('tradeModal').classList.add('hidden');
-        }
+        function closeTradeModal() { document.getElementById('tradeModal').classList.add('hidden'); }
 
         function saveTradeRecord() {
             const id = document.getElementById('editTradeId').value || 't-' + Date.now();
@@ -1941,6 +1878,7 @@
         function closeLightbox() { document.getElementById('lightboxModal').classList.add('hidden'); }
         function openAccountModal() { document.getElementById('accountModal').classList.remove('hidden'); }
         function closeAccountModal() { document.getElementById('accountModal').classList.add('hidden'); }
+
         function addNewAccount() {
             const accName = document.getElementById('newAccountName').value || 'Custom';
             const accBal = Number(document.getElementById('newAccountBalance').value) || 50000;
@@ -1984,14 +1922,14 @@
             document.getElementById('winSumTotal').innerText = wins;
             document.getElementById('winSumRate').innerText = wrVal.toFixed(0) + '%';
             const grossProfit = filteredTrades.filter(t => t.pnl > 0).reduce((s,t)=>s+Number(t.pnl),0);
-            document.getElementById('winSumAmount').innerText = formatMoney(grossProfit);
-            document.getElementById('winSumMax').innerText = wins > 0 ? formatMoney(Math.max(...filteredTrades.filter(t => t.pnl > 0).map(t=>Number(t.pnl)))) : '$0';
+            document.getElementById('winSumAmount').innerText = formatPnlString(grossProfit);
+            document.getElementById('winSumMax').innerText = wins > 0 ? formatPnlString(Math.max(...filteredTrades.filter(t => t.pnl > 0).map(t=>Number(t.pnl)))) : '$0';
 
             document.getElementById('lossSumTotal').innerText = losses;
             document.getElementById('lossSumRate').innerText = (total > 0 ? ((losses/total)*100) : 0).toFixed(0) + '%';
             const grossLoss = Math.abs(filteredTrades.filter(t => t.pnl < 0).reduce((s,t)=>s+Number(t.pnl),0));
-            document.getElementById('lossSumAmount').innerText = formatMoney(-grossLoss);
-            document.getElementById('lossSumMax').innerText = losses > 0 ? formatMoney(Math.min(...filteredTrades.filter(t => t.pnl < 0).map(t=>Number(t.pnl)))) : '$0';
+            document.getElementById('lossSumAmount').innerText = formatPnlString(-grossLoss);
+            document.getElementById('lossSumMax').innerText = losses > 0 ? formatPnlString(Math.min(...filteredTrades.filter(t => t.pnl < 0).map(t=>Number(t.pnl)))) : '$0';
 
             const ctx = document.getElementById('winrateCumulativeChart').getContext('2d');
             if (chartInstances['wrCumul']) chartInstances['wrCumul'].destroy();
@@ -2067,7 +2005,7 @@
                 tbodyHtml += `
                     <tr>
                         <td class="p-3.5 font-bold">${dayName}</td>
-                        <td class="p-3.5 ${netClass}">${formatMoney(net)}</td>
+                        <td class="p-3.5 ${netClass}">${formatPnlString(net)}</td>
                         <td class="p-3.5">${c}</td>
                         <td class="p-3.5">${(c * 1.0).toFixed(1)}</td>
                         <td class="p-3.5">${wr.toFixed(1)}%</td>
@@ -2078,10 +2016,10 @@
         }
 
         function renderWeeklyBreakdown() {
-            const weeks = ['W29', 'W30'];
-            let counts = [0, 0];
-            let profits = [0, 0];
-            let wins = [0, 0];
+            const weeks = ['W29', 'W30', 'W31', 'W32'];
+            let counts = new Array(4).fill(0);
+            let profits = new Array(4).fill(0);
+            let wins = new Array(4).fill(0);
 
             const filteredTrades = getFilteredTrades();
             filteredTrades.forEach(t => {
@@ -2116,8 +2054,10 @@
             const wr0 = counts[0] > 0 ? (wins[0]/counts[0])*100 : 0;
 
             document.getElementById('weeklyTableBody').innerHTML = `
-                <tr><td class="p-3.5 font-bold">W29</td><td class="p-3.5 ${net0Class}">${formatMoney(net0)}</td><td class="p-3.5">${counts[0]}</td><td class="p-3.5">${(counts[0]*1.0).toFixed(1)}</td><td class="p-3.5">${wr0.toFixed(1)}%</td></tr>
-                <tr><td class="p-3.5 font-bold">W30</td><td class="p-3.5 text-slate-800">${formatMoney(0)}</td><td class="p-3.5">0</td><td class="p-3.5">0.0</td><td class="p-3.5">0.0%</td></tr>
+                <tr><td class="p-3.5 font-bold">W29</td><td class="p-3.5 ${net0Class}">${formatPnlString(net0)}</td><td class="p-3.5">${counts[0]}</td><td class="p-3.5">${(counts[0]*1.0).toFixed(1)}</td><td class="p-3.5">${wr0.toFixed(1)}%</td></tr>
+                <tr><td class="p-3.5 font-bold">W30</td><td class="p-3.5 text-slate-800">${formatPnlString(0)}</td><td class="p-3.5">0</td><td class="p-3.5">0.0</td><td class="p-3.5">0.0%</td></tr>
+                <tr><td class="p-3.5 font-bold">W31</td><td class="p-3.5 text-slate-800">${formatPnlString(0)}</td><td class="p-3.5">0</td><td class="p-3.5">0.0</td><td class="p-3.5">0.0%</td></tr>
+                <tr><td class="p-3.5 font-bold">W32</td><td class="p-3.5 text-slate-800">${formatPnlString(0)}</td><td class="p-3.5">0</td><td class="p-3.5">0.0</td><td class="p-3.5">0.0%</td></tr>
             `;
         }
 
@@ -2166,7 +2106,7 @@
                 monthlyTableHTML += `
                     <tr>
                         <td class="p-3.5 font-bold">${m}</td>
-                        <td class="p-3.5 ${c > 0 ? netClass : 'text-slate-800'}">${c > 0 ? formatMoney(net) : formatMoney(0)}</td>
+                        <td class="p-3.5 ${c > 0 ? netClass : 'text-slate-800'}">${c > 0 ? formatPnlString(net) : formatPnlString(0)}</td>
                         <td class="p-3.5">${c}</td>
                         <td class="p-3.5">${(c * 1.0).toFixed(1)}</td>
                         <td class="p-3.5">${wr.toFixed(1)}%</td>
@@ -2230,7 +2170,7 @@
                 macroTableHTML += `
                     <tr>
                         <td class="p-3.5 font-bold">${mac}</td>
-                        <td class="p-3.5 ${c > 0 ? netClass : 'text-slate-800'}">${c > 0 ? formatMoney(net) : formatMoney(0)}</td>
+                        <td class="p-3.5 ${c > 0 ? netClass : 'text-slate-800'}">${c > 0 ? formatPnlString(net) : formatPnlString(0)}</td>
                         <td class="p-3.5">${c}</td>
                         <td class="p-3.5">${(c * 1.0).toFixed(1)}</td>
                         <td class="p-3.5">${wr.toFixed(1)}%</td>
