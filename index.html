@@ -52,13 +52,16 @@
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span class="text-xs font-semibold text-slate-700" id="currentAccountBadge">Tài khoản: Live ($100,000)</span>
                 </div>
-                <button onclick="openAccountModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-2.5 py-1.5 rounded-md font-medium transition flex items-center space-x-1 border border-slate-200">
+                <button onclick="openAccountModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1 border border-slate-200">
                     <i class="fa-solid fa-plus"></i> <span>Tài khoản</span>
                 </button>
-                <button onclick="resetDemoData()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1 border border-slate-200">
+                <button onclick="openAccountManageModal()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1 border border-slate-200">
+                    <i class="fa-solid fa-gear"></i> <span>Quản lý</span>
+                </button>
+                <button onclick="resetDemoData()" class="text-xs bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1 border border-slate-200">
                     <i class="fa-solid fa-rotate-right"></i> <span>Reset Demo</span>
                 </button>
-                <button onclick="clearAllData()" class="text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-1.5 rounded-md font-medium transition flex items-center space-x-1 border border-rose-200">
+                <button onclick="clearAllData()" class="text-xs bg-rose-50 hover:bg-rose-100 text-rose-600 px-3 py-1.5 rounded-lg font-medium transition flex items-center space-x-1 border border-rose-200">
                     <i class="fa-solid fa-trash-can"></i> <span>Xóa tất cả</span>
                 </button>
             </div>
@@ -75,10 +78,6 @@
                     <button onclick="signInWithGoogle()" class="bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
                         <i class="fa-brands fa-google text-red-500"></i>
                         <span>Đăng nhập Google</span>
-                    </button>
-                    <button onclick="openEmailAuthModal()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-300 text-xs font-semibold px-3.5 py-2 rounded-lg shadow-sm transition flex items-center space-x-2">
-                        <i class="fa-solid fa-envelope text-blue-500"></i>
-                        <span>Email</span>
                     </button>
                 </div>
                 <div id="loggedInView" class="hidden flex items-center space-x-3">
@@ -137,7 +136,7 @@
                 </div>
             </div>
             <div class="p-4 border-t border-slate-200 text-center">
-                <span class="text-[11px] text-slate-400 font-medium">jacooodevn v2.6.5 Pro Cloud</span>
+                <span class="text-[11px] text-slate-400 font-medium">jacooodevn v2.9.0 Pro Cloud</span>
             </div>
         </aside>
 
@@ -152,9 +151,7 @@
                     <div class="flex items-center space-x-2">
                         <span class="text-xs text-slate-500 font-medium">Tài khoản:</span>
                         <select id="filterAccount" onchange="applyFilters()" class="text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-blue-500 font-medium text-slate-700">
-                            <option value="all">Tất cả</option>
-                            <option value="Live">Live Account</option>
-                            <option value="Demo">Demo Account</option>
+                            <option value="all">Tất cả tài khoản</option>
                         </select>
                     </div>
                     <div class="flex items-center space-x-2">
@@ -560,6 +557,7 @@
                                     <th class="p-3.5">Duration</th>
                                     <th class="p-3.5">Setup</th>
                                     <th class="p-3.5">Tags</th>
+                                    <th class="p-3.5">Confluences</th>
                                     <th class="p-3.5">Nội dung ghi chú</th>
                                     <th class="p-3.5 text-center">Chart</th>
                                     <th class="p-3.5 text-center">Hành động</th>
@@ -746,8 +744,7 @@
                     <div>
                         <label class="font-bold text-slate-700 block mb-1">Tài khoản ghi nhận</label>
                         <select id="modalAccount" onchange="calculateTradeResults()" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500">
-                            <option value="Live">Live Account</option>
-                            <option value="Demo">Demo Account</option>
+                            <!-- Populated dynamically -->
                         </select>
                     </div>
                     <div>
@@ -869,25 +866,23 @@
                         </select>
                     </div>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="font-bold text-slate-700 block mb-1">Link biểu đồ TradingView</label>
-                        <input type="text" id="modalTvLink" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500" placeholder="e.g. https://www.tradingview.com/x/...">
+                <div>
+                    <label class="font-bold text-slate-700 block mb-1">Link biểu đồ TradingView</label>
+                    <input type="text" id="modalTvLink" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500 mb-3" placeholder="e.g. https://www.tradingview.com/x/...">
+                    
+                    <label class="font-bold text-slate-700 block mb-1">Ảnh chụp lệnh (Hỗ trợ nhiều ảnh)</label>
+                    <div class="flex items-center space-x-2">
+                        <input type="text" id="modalChartImgInput" class="flex-1 bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500" placeholder="Dán URL ảnh hoặc chọn tệp">
+                        <button type="button" onclick="addChartImageFromInput()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-3 py-2.5 rounded-lg text-xs transition">Thêm URL</button>
+                        <label class="cursor-pointer bg-blue-50 hover:bg-blue-100 text-blue-600 border border-blue-200 font-bold px-3 py-2.5 rounded-lg text-xs transition">
+                            Chọn tệp <input type="file" id="modalFileUploader" accept="image/*" multiple class="hidden" onchange="handleMultipleFileSelect(event)">
+                        </label>
                     </div>
-                    <div>
-                        <label class="font-bold text-slate-700 block mb-1">Ảnh chụp lệnh (Dán URL hoặc chọn tệp)</label>
-                        <div class="flex items-center space-x-2">
-                            <input type="text" id="modalChartImg" class="flex-1 bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700 focus:outline-none focus:border-blue-500" placeholder="Nhập URL hoặc chọn tệp">
-                            <label class="cursor-pointer bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-3 py-2.5 rounded-lg text-xs transition">
-                                Chọn tệp <input type="file" id="modalFileUploader" accept="image/*" class="hidden" onchange="handleFileSelect(event)">
-                            </label>
-                        </div>
+                    <!-- Instant Image Previews -->
+                    <div id="imagePreviewContainer" class="hidden mt-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                        <span class="text-[11px] font-bold text-slate-500 block mb-2">Ảnh đã đính kèm (<span id="imageCountBadge">0</span>):</span>
+                        <div id="imagePreviewsList" class="flex flex-wrap gap-2"></div>
                     </div>
-                </div>
-                <!-- Instant Image Preview Box -->
-                <div id="imagePreviewContainer" class="hidden mt-2 p-3 bg-slate-50 border border-slate-200 rounded-xl">
-                    <span class="text-[11px] font-bold text-slate-500 block mb-1.5">Xem trước ảnh (Instant Preview):</span>
-                    <img id="modalImgPreview" src="" class="h-32 rounded-lg object-contain border border-slate-300 shadow-sm">
                 </div>
             </div>
             <div class="bg-slate-50 px-6 py-3.5 border-t border-slate-200 flex justify-end space-x-3">
@@ -901,43 +896,35 @@
     <div id="accountModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
             <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
-                <h3 class="font-bold text-sm tracking-wide">QUẢN LÝ TÀI KHOẢN GIAO DỊCH</h3>
+                <h3 class="font-bold text-sm tracking-wide">THÊM TÀI KHOẢN GIAO DỊCH MỚI</h3>
                 <button onclick="closeAccountModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="p-6 space-y-4 text-xs">
                 <div>
                     <label class="font-bold text-slate-700 block mb-1">Tên Tài Khoản</label>
-                    <input type="text" id="newAccountName" value="Custom Account" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
+                    <input type="text" id="newAccountName" value="Challenge 100K" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
                 </div>
                 <div>
                     <label class="font-bold text-slate-700 block mb-1">Số Vốn Khởi Tạo (Initial Balance $)</label>
-                    <input type="number" id="newAccountBalance" value="50000" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
+                    <input type="number" id="newAccountBalance" value="100000" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700">
                 </div>
                 <button onclick="addNewAccount()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow transition">Thêm Tài Khoản Tùy Chỉnh</button>
             </div>
         </div>
     </div>
 
-    <!-- EMAIL AUTH MODAL -->
-    <div id="emailAuthModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden animate-in fade-in zoom-in duration-200">
+    <!-- ACCOUNT MANAGE MODAL -->
+    <div id="accountManageModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200">
             <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
-                <h3 class="font-bold text-sm tracking-wide">ĐĂNG NHẬP / ĐĂNG KÝ EMAIL</h3>
-                <button onclick="closeEmailAuthModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+                <h3 class="font-bold text-sm tracking-wide">QUẢN LÝ TÀI KHOẢN GIAO DỊCH</h3>
+                <button onclick="closeAccountManageModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="p-6 space-y-4 text-xs">
-                <div>
-                    <label class="font-bold text-slate-700 block mb-1">Email</label>
-                    <input type="email" id="authEmailInput" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700" placeholder="name@example.com">
-                </div>
-                <div>
-                    <label class="font-bold text-slate-700 block mb-1">Mật khẩu (Password)</label>
-                    <input type="password" id="authPasswordInput" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-2.5 font-medium text-slate-700" placeholder="••••••••">
-                </div>
-                <div class="flex space-x-3 pt-2">
-                    <button onclick="handleEmailLogin()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow transition">Đăng Nhập</button>
-                    <button onclick="handleEmailRegister()" class="flex-1 bg-slate-800 hover:bg-slate-900 text-white font-bold py-2.5 rounded-lg shadow transition">Đăng Ký</button>
-                </div>
+            <div class="p-6 space-y-4 text-xs max-h-[70vh] overflow-y-auto" id="accountManageList">
+                <!-- Populated dynamically -->
+            </div>
+            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end">
+                <button onclick="closeAccountManageModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs transition">Đóng</button>
             </div>
         </div>
     </div>
@@ -952,6 +939,20 @@
         </div>
     </div>
 
+    <!-- NOTE EXPAND MODAL -->
+    <div id="noteModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden animate-in fade-in zoom-in duration-200">
+            <div class="bg-slate-900 text-white px-6 py-4 flex items-center justify-between">
+                <h3 class="font-bold text-sm tracking-wide">CHI TIẾT NỘI DUNG GHI CHÚ</h3>
+                <button onclick="closeNoteModal()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <div class="p-6 text-xs text-slate-700 whitespace-pre-wrap max-h-[60vh] overflow-y-auto leading-relaxed" id="modalNoteContent"></div>
+            <div class="bg-slate-50 px-6 py-3 border-t border-slate-200 flex justify-end">
+                <button onclick="closeNoteModal()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold px-4 py-2 rounded-lg text-xs transition">Đóng</button>
+            </div>
+        </div>
+    </div>
+
     <!-- FIREBASE & CORE SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
@@ -960,9 +961,7 @@
             signInWithPopup, 
             GoogleAuthProvider, 
             signOut, 
-            onAuthStateChanged,
-            signInWithEmailAndPassword,
-            createUserWithEmailAndPassword
+            onAuthStateChanged
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { 
             getFirestore, 
@@ -1006,41 +1005,15 @@
             try {
                 const result = await signInWithPopup(auth, googleProvider);
                 console.log("Đăng nhập Google thành công:", result.user);
-                if (typeof window.updateLoginUI === 'function') {
-                    window.updateLoginUI(result.user);
-                }
+                window.updateLoginUI(result.user);
+                await window.syncDataFromCloud(result.user.uid);
             } catch (error) {
                 console.error("Lỗi đăng nhập Google:", error);
                 if (error.code === 'auth/popup-blocked') {
                     alert("Popup bị chặn. Vui lòng cho phép popup cho trang này rồi thử lại.");
-                } else if (error.code === 'auth/popup-closed-by-user') {
-                    console.log("Người dùng đã đóng popup.");
-                } else {
+                } else if (error.code !== 'auth/popup-closed-by-user') {
                     alert("Đăng nhập thất bại: " + error.message);
                 }
-            }
-        };
-
-        window.handleEmailLogin = async function() {
-            const email = document.getElementById('authEmailInput').value;
-            const pass = document.getElementById('authPasswordInput').value;
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                closeEmailAuthModal();
-            } catch (e) {
-                alert('Đăng nhập thất bại: ' + e.message);
-            }
-        };
-
-        window.handleEmailRegister = async function() {
-            const email = document.getElementById('authEmailInput').value;
-            const pass = document.getElementById('authPasswordInput').value;
-            try {
-                await createUserWithEmailAndPassword(auth, email, pass);
-                alert('Đăng ký tài khoản thành công!');
-                closeEmailAuthModal();
-            } catch (e) {
-                alert('Đăng ký thất bại: ' + e.message);
             }
         };
 
@@ -1081,6 +1054,7 @@
             currentYear: realNow.getFullYear(),
             currentMonth: realNow.getMonth(), // 0-11
             plannerDate: realNow.toISOString().split('T')[0],
+            activeAccount: 'Live',
             accounts: {
                 'Live': { name: 'Live Account', balance: 100000 },
                 'Demo': { name: 'Demo Account', balance: 50000 }
@@ -1101,27 +1075,18 @@
                     setup: 'Reversal',
                     tag: 'Discipline',
                     confluences: ['SMT', 'FVG'],
-                    notes: 'Lệnh mẫu Reversal M1.',
+                    notes: 'Lệnh này cả ngày nó chạy nhiều rồi nhưng vẫn còn 1 cái PWL và khi mở cửa giá đi len sau đó tạo một cái PO3 thì sau khi nó phản ứng đóng nến giảm với cái BPR-M1 Thì entry',
                     duration: '10m',
                     hour: '09:30-09:40',
                     tvLink: 'https://www.tradingview.com/x/example',
-                    chartImg: 'https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart+NQ'
+                    chartImgs: ['https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart+1']
                 }
             ],
-            planners: {
-                '2026-07-16': {
-                    mentalState: 'Neutral',
-                    marketBias: 'Neutral',
-                    rating: 50,
-                    goals: [{text: 'hold đến liquidity quan trọng nhé!!!!', completed: true}],
-                    sessionNotes: 'Phiên giao dịch thành công rực rỡ với setup Reversal M1.'
-                }
-            }
+            planners: {}
         };
 
-        async function syncDataFromCloud(uid) {
+        window.syncDataFromCloud = async function(uid) {
             try {
-                // Fetch user specific data from Firestore under /users/{uid}
                 const userDocRef = window.doc(window.db, "users", uid);
                 const userSnap = await window.getDoc(userDocRef);
                 if (userSnap.exists()) {
@@ -1129,12 +1094,13 @@
                     if (data.trades) appState.trades = data.trades;
                     if (data.planners) appState.planners = data.planners;
                     if (data.accounts) appState.accounts = data.accounts;
+                    if (data.activeAccount) appState.activeAccount = data.activeAccount;
                 } else {
-                    // Initialize cloud with default state
                     await window.setDoc(userDocRef, {
                         trades: appState.trades,
                         planners: appState.planners,
-                        accounts: appState.accounts
+                        accounts: appState.accounts,
+                        activeAccount: appState.activeAccount
                     });
                 }
             } catch (e) {
@@ -1142,7 +1108,7 @@
             }
             saveAppState();
             switchTab(appState.currentTab);
-        }
+        };
 
         async function saveCloudData() {
             const user = window.firebaseAuth?.currentUser;
@@ -1152,7 +1118,8 @@
                     await window.setDoc(userDocRef, {
                         trades: appState.trades,
                         planners: appState.planners,
-                        accounts: appState.accounts
+                        accounts: appState.accounts,
+                        activeAccount: appState.activeAccount
                     }, { merge: true });
                 } catch (e) {
                     console.error("Error saving to cloud:", e);
@@ -1161,7 +1128,7 @@
         }
 
         function loadAppState() {
-            const saved = localStorage.getItem('jacooodevn_persistent_state_v16');
+            const saved = localStorage.getItem('jacooodevn_persistent_state_v29');
             if (saved) {
                 try {
                     const parsed = JSON.parse(saved);
@@ -1173,6 +1140,7 @@
             document.getElementById('filterDateTo').value = todayStr;
             document.getElementById('modalDate').value = todayStr;
             document.getElementById('overviewYear').value = appState.currentYear;
+            updateAccountSelectors();
         }
 
         window.loadLocalStateFallback = function() {
@@ -1181,12 +1149,9 @@
         };
 
         function saveAppState() {
-            localStorage.setItem('jacooodevn_persistent_state_v16', JSON.stringify(appState));
+            localStorage.setItem('jacooodevn_persistent_state_v29', JSON.stringify(appState));
             saveCloudData();
         }
-
-        function openEmailAuthModal() { document.getElementById('emailAuthModal').classList.remove('hidden'); }
-        function closeEmailAuthModal() { document.getElementById('emailAuthModal').classList.add('hidden'); }
 
         async function handleLogout() {
             try {
@@ -1194,6 +1159,26 @@
                     await window.signOut(window.firebaseAuth);
                 }
             } catch (e) { console.error(e); }
+        }
+
+        function updateAccountSelectors() {
+            const filterAcc = document.getElementById('filterAccount');
+            const modalAcc = document.getElementById('modalAccount');
+            
+            let filterHtml = '<option value="all">Tất cả tài khoản</option>';
+            let modalHtml = '';
+
+            for (const [key, acc] of Object.entries(appState.accounts)) {
+                filterHtml += `<option value="${key}">${acc.name} ($${acc.balance.toLocaleString()})</option>`;
+                modalHtml += `<option value="${key}">${acc.name} ($${acc.balance.toLocaleString()})</option>`;
+            }
+
+            filterAcc.innerHTML = filterHtml;
+            filterAcc.value = appState.activeAccount;
+            modalAcc.innerHTML = modalHtml;
+
+            const activeAccObj = appState.accounts[appState.activeAccount] || Object.values(appState.accounts)[0];
+            document.getElementById('currentAccountBadge').innerText = `Tài khoản: ${activeAccObj.name} ($${activeAccObj.balance.toLocaleString()})`;
         }
 
         function switchTab(tabId) {
@@ -1222,7 +1207,7 @@
 
         function resetDemoData() {
             if (confirm('Khôi phục dữ liệu mẫu Demo?')) {
-                localStorage.removeItem('jacooodevn_persistent_state_v16');
+                localStorage.removeItem('jacooodevn_persistent_state_v29');
                 location.reload();
             }
         }
@@ -1237,14 +1222,6 @@
         }
 
         let chartInstances = {};
-
-        function formatMoney(amount) {
-            const num = Number(amount) || 0;
-            const absVal = Math.abs(num).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
-            if (num > 0) return `+$${absVal}`;
-            if (num < 0) return `-$${absVal}`;
-            return `+$0`;
-        }
 
         function formatPnlString(amount) {
             const num = Number(amount) || 0;
@@ -1384,7 +1361,7 @@
             const winRateStr = winRateVal.toFixed(0) + '%';
             const netProfit = filteredTrades.reduce((s, t) => s + Number(t.pnl), 0);
             
-            const activeAccKey = document.getElementById('filterAccount')?.value || 'Live';
+            const activeAccKey = document.getElementById('filterAccount')?.value || appState.activeAccount;
             const accBalance = appState.accounts[activeAccKey]?.balance || 100000;
             const returnPctVal = (netProfit / accBalance) * 100;
             const returnPctStr = (returnPctVal >= 0 ? '+' : '') + returnPctVal.toFixed(2) + '%';
@@ -1400,14 +1377,25 @@
             document.getElementById('gaugeWinCount').innerText = winTrades;
             document.getElementById('gaugeLossCount').innerText = lossTrades;
 
-            const pointsMultiplier = netProfit >= 0 ? 1 : -1;
-            const avgPts = (totalTrades > 0 ? (Math.abs(netProfit) / totalTrades) / 10 : 0) * pointsMultiplier;
-            const maxPts = (totalTrades > 0 ? Math.abs(netProfit) / 10 : 0) * pointsMultiplier;
-            
+            // Accurate Points calculation based on Price Distance (Entry vs Close)
+            let totalPoints = 0;
+            let maxWinPts = 0;
+            let maxLossPts = 0;
+            filteredTrades.forEach(t => {
+                const entry = Number(t.entry) || 0;
+                const close = Number(t.close) || 0;
+                const dist = Math.abs(close - entry);
+                const pts = Number(t.pnl) >= 0 ? dist : -dist;
+                totalPoints += pts;
+                if (pts > maxWinPts) maxWinPts = pts;
+                if (pts < maxLossPts) maxLossPts = pts;
+            });
+            const avgPts = totalTrades > 0 ? totalPoints / totalTrades : 0;
+
             document.getElementById('stat-avg-pts').innerText = `${avgPts.toFixed(1)} pts`;
-            document.getElementById('stat-max-win-pts').innerText = `${maxPts.toFixed(1)} pts`;
-            document.getElementById('stat-max-loss-pts').innerText = `${(maxPts * -1).toFixed(1)} pts`;
-            document.getElementById('stat-total-pts').innerText = `${(avgPts * totalTrades).toFixed(1)} pts`;
+            document.getElementById('stat-max-win-pts').innerText = `${maxWinPts.toFixed(1)} pts`;
+            document.getElementById('stat-max-loss-pts').innerText = `${maxLossPts.toFixed(1)} pts`;
+            document.getElementById('stat-total-pts').innerText = `${totalPoints.toFixed(1)} pts`;
 
             renderCumulativeChart();
             renderWinRateGauge(winRateVal, winTrades, lossTrades);
@@ -1559,6 +1547,20 @@
             const planData = appState.planners[selectedDate] || {};
             document.getElementById('plannerSessionNotes').value = planData.sessionNotes || '';
 
+            // Update active state for mental state and market bias buttons
+            document.querySelectorAll('.mental-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+                if (btn.getAttribute('onclick')?.includes(planData.mentalState)) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+                }
+            });
+            document.querySelectorAll('.bias-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+                if (btn.getAttribute('onclick')?.includes(planData.marketBias)) {
+                    btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+                }
+            });
+
             const strip = document.getElementById('plannerWeekStrip');
             strip.innerHTML = '';
             const baseDate = new Date(selectedDate);
@@ -1579,10 +1581,9 @@
                 weekProfitSum += dPnl;
 
                 const isSelected = dStr === selectedDate;
-                const borderClass = isSelected ? 'border-blue-600 bg-blue-50/30 ring-2 ring-blue-500/20' : 'border-slate-200 bg-white';
-                const dayNames = ['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ Nhật'];
+                const dayNames = ['Thứ Hai', 'Thứ Ba', 'Thứ Tư', 'Thứ Năm', 'Thứ Sáu', 'Thứ Bảy', 'Chủ Nhật'];
                 const dPnlClass = dPnl > 0 ? 'text-emerald-600 font-bold' : (dPnl < 0 ? 'text-rose-600 font-bold' : 'text-slate-400');
-                const dayBgCard = dPnl > 0 ? 'bg-emerald-50/40 border-emerald-200' : (dPnl < 0 ? 'bg-rose-50/40 border-rose-200' : borderClass);
+                const dayBgCard = dPnl > 0 ? 'bg-emerald-50/40 border-emerald-200' : (dPnl < 0 ? 'bg-rose-50/40 border-rose-200' : (isSelected ? 'border-blue-600 bg-blue-50/30 ring-2 ring-blue-500/20' : 'bg-white border-slate-200'));
 
                 strip.innerHTML += `
                     <div onclick="selectPlannerDate('${dStr}')" class="${dayBgCard} border rounded-xl p-3 flex flex-col justify-between cursor-pointer hover:shadow transition">
@@ -1626,12 +1627,14 @@
             if (!appState.planners[appState.plannerDate]) appState.planners[appState.plannerDate] = {};
             appState.planners[appState.plannerDate].mentalState = state;
             saveAppState();
+            renderPlanner();
         }
 
         function selectMarketBias(bias) {
             if (!appState.planners[appState.plannerDate]) appState.planners[appState.plannerDate] = {};
             appState.planners[appState.plannerDate].marketBias = bias;
             saveAppState();
+            renderPlanner();
         }
 
         function updateRatingSliderVal(val) {
@@ -1687,19 +1690,60 @@
             alert('Đã lưu kế hoạch và ghi chú ngày thành công!');
         }
 
-        function handleFileSelect(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const base64Url = e.target.result;
-                    document.getElementById('modalChartImg').value = base64Url;
-                    const previewContainer = document.getElementById('imagePreviewContainer');
-                    const imgPreview = document.getElementById('modalImgPreview');
-                    imgPreview.src = base64Url;
-                    previewContainer.classList.remove('hidden');
-                };
-                reader.readAsDataURL(file);
+        // Multiple Image handling
+        let currentModalImages = [];
+
+        function handleMultipleFileSelect(event) {
+            const files = event.target.files;
+            if (files && files.length > 0) {
+                for (let i = 0; i < files.length; i++) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        currentModalImages.push(e.target.result);
+                        renderImagePreviews();
+                    };
+                    reader.readAsDataURL(files[i]);
+                }
+            }
+        }
+
+        function addChartImageFromInput() {
+            const input = document.getElementById('modalChartImgInput');
+            const val = input.value.trim();
+            if (val) {
+                currentModalImages.push(val);
+                input.value = '';
+                renderImagePreviews();
+            }
+        }
+
+        function removeModalImage(index) {
+            currentModalImages.splice(index, 1);
+            renderImagePreviews();
+        }
+
+        function renderImagePreviews() {
+            const container = document.getElementById('imagePreviewContainer');
+            const list = document.getElementById('imagePreviewsList');
+            const badge = document.getElementById('imageCountBadge');
+            
+            list.innerHTML = '';
+            badge.innerText = currentModalImages.length;
+
+            if (currentModalImages.length > 0) {
+                container.classList.remove('hidden');
+                currentModalImages.forEach((imgUrl, idx) => {
+                    list.innerHTML += `
+                        <div class="relative group">
+                            <img src="${imgUrl}" class="h-20 w-20 rounded-lg object-cover border border-slate-300 shadow-sm">
+                            <button type="button" onclick="removeModalImage(${idx})" class="absolute -top-2 -right-2 bg-rose-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-[10px] font-bold shadow hover:bg-rose-700 transition">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+                    `;
+                });
+            } else {
+                container.classList.add('hidden');
             }
         }
 
@@ -1740,6 +1784,30 @@
                 const pnlColor = Number(t.pnl) > 0 ? 'text-emerald-600 font-bold' : (Number(t.pnl) < 0 ? 'text-rose-600 font-bold' : 'text-slate-800');
                 const retColor = Number(t.returnPct) > 0 ? 'text-emerald-600 font-bold' : (Number(t.returnPct) < 0 ? 'text-rose-600 font-bold' : 'text-slate-800');
                 
+                // Render Confluences badges
+                let confluencesHtml = '';
+                if (t.confluences && t.confluences.length > 0) {
+                    confluencesHtml = `<div class="flex flex-wrap gap-1 max-w-[140px]">` + t.confluences.map(c => `<span class="bg-indigo-50 text-indigo-700 border border-indigo-200 px-1.5 py-0.5 rounded text-[9px] font-bold">${c}</span>`).join('') + `</div>`;
+                } else {
+                    confluencesHtml = `<span class="text-slate-400 text-[10px]">--</span>`;
+                }
+
+                // Render Chart Images thumbnails
+                let imgs = t.chartImgs || (t.chartImg ? [t.chartImg] : []);
+                let chartThumbHtml = '';
+                if (imgs.length > 0) {
+                    chartThumbHtml = `
+                        <div class="flex items-center justify-center space-x-1 cursor-pointer" onclick="openLightbox('${imgs[0]}')">
+                            <i class="fa-regular fa-image text-emerald-600 text-sm"></i>
+                            <span class="text-[10px] font-bold text-slate-500">(${imgs.length})</span>
+                        </div>
+                    `;
+                } else {
+                    chartThumbHtml = `<span class="text-slate-300 text-[10px]">--</span>`;
+                }
+
+                const notesText = t.notes || '';
+
                 tbody.innerHTML += `
                     <tr class="hover:bg-slate-50 transition border-b border-slate-100">
                         <td class="p-3.5 font-bold text-slate-800">${t.symbol}</td>
@@ -1753,10 +1821,11 @@
                         <td class="p-3.5"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px]">${t.duration}</span></td>
                         <td class="p-3.5"><span class="bg-blue-50 text-blue-700 border border-blue-200 px-2 py-0.5 rounded-full text-[10px] font-bold">${t.setup}</span></td>
                         <td class="p-3.5"><span class="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[10px] font-semibold">${t.tag}</span></td>
-                        <td class="p-3.5 max-w-xs truncate text-slate-500" title="${t.notes}">${t.notes}</td>
-                        <td class="p-3.5 text-center">
-                            <button onclick="openLightbox('${t.chartImg}')" class="text-emerald-600 hover:text-emerald-700"><i class="fa-regular fa-image text-sm"></i></button>
+                        <td class="p-3.5">${confluencesHtml}</td>
+                        <td class="p-3.5 max-w-xs text-slate-600">
+                            <div class="whitespace-pre-wrap break-words leading-relaxed max-h-28 overflow-y-auto pr-1">${notesText || '<span class="text-slate-300">Không có ghi chú</span>'}</div>
                         </td>
+                        <td class="p-3.5 text-center">${chartThumbHtml}</td>
                         <td class="p-3.5 text-center space-x-2">
                             <button onclick="editTrade('${t.id}')" class="text-slate-400 hover:text-blue-600"><i class="fa-solid fa-pen text-xs"></i></button>
                             <button onclick="deleteTrade('${t.id}')" class="text-slate-400 hover:text-rose-600"><i class="fa-solid fa-trash text-xs"></i></button>
@@ -1783,7 +1852,10 @@
 
         function openTradeModal(tradeId = null) {
             document.getElementById('tradeModal').classList.remove('hidden');
-            document.getElementById('imagePreviewContainer').classList.add('hidden');
+            currentModalImages = [];
+            renderImagePreviews();
+            updateAccountSelectors();
+
             if (tradeId) {
                 document.getElementById('tradeModalTitle').innerText = 'SỬA GIAO DỊCH';
                 const t = appState.trades.find(x => x.id === tradeId);
@@ -1801,15 +1873,18 @@
                     document.getElementById('modalReturnPct').value = t.returnPct;
                     document.getElementById('modalSetup').value = t.setup;
                     document.getElementById('modalTag').value = t.tag;
-                    document.getElementById('modalNotes').value = t.notes;
+                    document.getElementById('modalNotes').value = t.notes || '';
                     document.getElementById('modalDuration').value = t.duration;
                     document.getElementById('modalHour').value = t.hour;
                     document.getElementById('modalTvLink').value = t.tvLink || '';
-                    document.getElementById('modalChartImg').value = t.chartImg || '';
-                    if (t.chartImg) {
-                        document.getElementById('modalImgPreview').src = t.chartImg;
-                        document.getElementById('imagePreviewContainer').classList.remove('hidden');
-                    }
+
+                    // Checkboxes SMC
+                    document.querySelectorAll('input[name="smcConfluence"]').forEach(cb => {
+                        cb.checked = t.confluences && t.confluences.includes(cb.value);
+                    });
+
+                    currentModalImages = t.chartImgs || (t.chartImg ? [t.chartImg] : []);
+                    renderImagePreviews();
                 }
             } else {
                 document.getElementById('tradeModalTitle').innerText = '+ THÊM GIAO DỊCH MỚI';
@@ -1819,7 +1894,7 @@
                 document.getElementById('modalPnl').value = '';
                 document.getElementById('modalReturnPct').value = '';
                 document.getElementById('modalNotes').value = '';
-                document.getElementById('modalChartImg').value = '';
+                document.querySelectorAll('input[name="smcConfluence"]').forEach(cb => cb.checked = false);
             }
         }
 
@@ -1843,12 +1918,13 @@
             const duration = document.getElementById('modalDuration').value;
             const hour = document.getElementById('modalHour').value;
             const tvLink = document.getElementById('modalTvLink').value;
-            const chartImg = document.getElementById('modalChartImg').value || 'https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart';
-
+            
             const confluences = [];
             document.querySelectorAll('input[name="smcConfluence"]:checked').forEach(cb => confluences.push(cb.value));
 
-            const tradeObj = { id, account, date, symbol, type, entry, close, volume, fees, pnl, returnPct, setup, tag, confluences, notes, duration, hour, tvLink, chartImg };
+            const chartImgs = currentModalImages.length > 0 ? currentModalImages : ['https://placehold.co/600x400/1e293b/ffffff?text=Trade+Chart'];
+
+            const tradeObj = { id, account, date, symbol, type, entry, close, volume, fees, pnl, returnPct, setup, tag, confluences, notes, duration, hour, tvLink, chartImgs };
 
             const existingIdx = appState.trades.findIndex(t => t.id === id);
             if (existingIdx >= 0) {
@@ -1876,16 +1952,73 @@
             document.getElementById('lightboxModal').classList.remove('hidden');
         }
         function closeLightbox() { document.getElementById('lightboxModal').classList.add('hidden'); }
+
+        function openNoteModal(noteText) {
+            document.getElementById('modalNoteContent').innerText = noteText || 'Không có nội dung ghi chú.';
+            document.getElementById('noteModal').classList.remove('hidden');
+        }
+        function closeNoteModal() { document.getElementById('noteModal').classList.add('hidden'); }
+
         function openAccountModal() { document.getElementById('accountModal').classList.remove('hidden'); }
         function closeAccountModal() { document.getElementById('accountModal').classList.add('hidden'); }
 
+        function openAccountManageModal() {
+            renderAccountManageList();
+            document.getElementById('accountManageModal').classList.remove('hidden');
+        }
+        function closeAccountManageModal() { document.getElementById('accountManageModal').classList.add('hidden'); }
+
+        function renderAccountManageList() {
+            const listContainer = document.getElementById('accountManageList');
+            listContainer.innerHTML = '';
+            for (const [key, acc] of Object.entries(appState.accounts)) {
+                listContainer.innerHTML += `
+                    <div class="flex items-center justify-between bg-slate-50 p-3 rounded-xl border border-slate-200">
+                        <div>
+                            <div class="font-bold text-slate-800 text-sm">${acc.name} (${key})</div>
+                            <div class="text-[11px] text-slate-500">Số vốn: $${acc.balance.toLocaleString()}</div>
+                        </div>
+                        <div>
+                            ${Object.keys(appState.accounts).length > 1 ? `<button onclick="deleteAccount('${key}')" class="bg-rose-50 hover:bg-rose-100 text-rose-600 font-semibold px-3 py-1.5 rounded-lg text-xs transition border border-rose-200"><i class="fa-solid fa-trash mr-1"></i> Xóa</button>` : '<span class="text-slate-400 text-[10px] italic">Mặc định</span>'}
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function deleteAccount(accKey) {
+            if (confirm(`Bạn có chắc muốn xóa tài khoản "${accKey}"? Tất cả giao dịch và kế hoạch của tài khoản này cũng sẽ bị xóa vĩnh viễn!`)) {
+                delete appState.accounts[accKey];
+                appState.trades = appState.trades.filter(t => t.account !== accKey);
+                if (appState.activeAccount === accKey) {
+                    appState.activeAccount = Object.keys(appState.accounts)[0] || 'Live';
+                }
+                saveAppState();
+                updateAccountSelectors();
+                renderAccountManageList();
+                switchTab(appState.currentTab);
+            }
+        }
+
         function addNewAccount() {
-            const accName = document.getElementById('newAccountName').value || 'Custom';
+            const accName = document.getElementById('newAccountName').value.trim() || 'Custom';
             const accBal = Number(document.getElementById('newAccountBalance').value) || 50000;
-            appState.accounts[accName] = { name: accName, balance: accBal };
+            const key = accName.replace(/\s+/g, '_');
+            appState.accounts[key] = { name: accName, balance: accBal };
+            appState.activeAccount = key;
             saveAppState();
+            updateAccountSelectors();
             alert(`Đã thêm tài khoản ${accName} ($${accBal.toLocaleString()}) thành công!`);
             closeAccountModal();
+            switchTab(appState.currentTab);
+        }
+
+        function applyFilters() {
+            const accVal = document.getElementById('filterAccount').value;
+            appState.activeAccount = accVal === 'all' ? Object.keys(appState.accounts)[0] : accVal;
+            saveAppState();
+            updateAccountSelectors();
+            switchTab(appState.currentTab);
         }
 
         function renderWinrateAnalysis() {
@@ -2178,10 +2311,6 @@
                 `;
             });
             document.getElementById('macroTableBody').innerHTML = macroTableHTML;
-        }
-
-        function applyFilters() {
-            switchTab(appState.currentTab);
         }
 
         window.onload = function() {
